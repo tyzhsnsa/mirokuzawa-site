@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>みろく沢炭砿資料館｜非公式試作ページ</title>
+  <meta name="description" content="福島県いわき市内郷白水町にある、炭鉱文化を学べる地域歴史博物館『みろく沢炭砿資料館』の非公式試作ページです。" />
+  <style>
+    :root {
+      --black: #171310;
+      --deep-black: #0d0b09;
+      --brown: #6f4a2b;
+      --brown-dark: #3d2a1b;
+      --brown-light: #9b6a3d;
+      --cream: #f4ead6;
+      --cream-deep: #e0cfad;
+      --paper: #fff8e9;
+      --red: #b32b22;
+      --gold: #c99b45;
+      --gray: #8d877e;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", "Yu Gothic", "Meiryo", serif;
+      color: var(--cream);
+      background:
+        radial-gradient(circle at top left, rgba(201, 155, 69, 0.18), transparent 32rem),
+        linear-gradient(135deg, #100d0b 0%, #23170f 48%, #0b0908 100%);
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.09;
+      background-image:
+        linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 22px 22px;
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(13, 11, 9, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(244, 234, 214, 0.12);
+    }
+
+    .header-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      border: 2px solid var(--gold);
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #2d2118, #070605);
+      box-shadow: inset 0 0 12px rgba(201, 155, 69, 0.35);
+      font-size: 20px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 18px;
+      font-family: "Yu Gothic", "Meiryo", sans-serif;
+      font-size: 14px;
+      color: rgba(244, 234, 214, 0.8);
+    }
+
+    .nav a:hover {
+      color: var(--gold);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 720px;
+      display: flex;
+      align-items: center;
+      padding: 92px 0 72px;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(244, 234, 214, 0.12);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -22% -10%;
+      height: 320px;
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,0.72));
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 52px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border: 1px solid rgba(201, 155, 69, 0.55);
+      border-radius: 999px;
+      background: rgba(61, 42, 27, 0.72);
+      color: var(--cream-deep);
+      font-size: 14px;
+      font-family: "Yu Gothic", "Meiryo", sans-serif;
+      margin-bottom: 22px;
+    }
+
+    .badge::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 12px var(--gold);
+    }
+
+    h1 {
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: 1.08;
+      letter-spacing: 0.06em;
+      margin-bottom: 22px;
+      text-shadow: 0 5px 28px rgba(0,0,0,0.6);
+    }
+
+    .hero-lead {
+      max-width: 680px;
+      font-size: clamp(17px, 2.2vw, 22px);
+      color: rgba(244, 234, 214, 0.9);
+      margin-bottom: 32px;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 56px;
+      padding: 14px 24px;
+      border-radius: 999px;
+      font-family: "Yu Gothic", "Meiryo", sans-serif;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-phone {
+      background: linear-gradient(135deg, #d53a2e, #8f1d17);
+      color: #fff;
+      box-shadow: 0 12px 28px rgba(179, 43, 34, 0.45);
+      font-size: 18px;
+    }
+
+    .btn-map {
+      background: var(--cream);
+      color: var(--black);
+      box-shadow: 0 12px 26px rgba(244, 234, 214, 0.18);
+    }
+
+    .btn-outline {
+      border-color: rgba(244, 234, 214, 0.38);
+      color: var(--cream);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .info-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 780px;
+    }
+
+    .info-card {
+      padding: 16px;
+      background: rgba(13, 11, 9, 0.58);
+      border: 1px solid rgba(244, 234, 214, 0.14);
+      border-radius: 16px;
+    }
+
+    .info-card span {
+      display: block;
+      font-family: "Yu Gothic", "Meiryo", sans-serif;
+      font-size: 12px;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .hero-panel {
+      position: relative;
+      padding: 18px;
+      border-radius: 28px;
+      background: linear-gradient(145deg, rgba(244, 234, 214, .18), rgba(111, 74, 43, .18));
+      border: 1px solid rgba(244, 234, 214, 0.18);
+      box-shadow: var(--shadow);
+    }
+
+    .photo-placeholder.hero-photo {
+      height: 430px;
+      border-radius: 22px;
+      font-size: 24px;
+    }
+
+    .stamp {
+      position: absolute;
+      right: -10px;
+      bottom: 28px;
+      width: 148px;
+      height: 148px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border: 3px solid rgba(201, 155, 69, 0.8);
+      color: var(--gold);
+      border-radius: 50%;
+      transform: rotate(-10deg);
+      background: rgba(13, 11, 9, 0.84);
+      font-weight: 700;
+      line-height: 1.45;
+      letter-spacing: 0.06em;
+    }
+
+    section {
+      padding: 86px 0;
+    }
+
+    .section-title {
+      margin-bottom: 34px;
+    }
+
+    .section-title .en {
+      display: block;
+      color: var(--gold);
+      font-family: "Yu Gothic", "Meiryo", sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: clamp(30px, 4.5vw, 48px);
+      line-height: 1.25;
+      letter-spacing: 0.05em;
+    }
+
+    .lead-text {
+      max-width: 780px;
+      color: rgba(244, 234, 214, 0.84);
+      font-size: 17px;
+    }
+
+    .features-grid,
+    .recommend-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 36px;
+    }
+
+    .feature-card,
+    .recommend-card,
+    .guide-card {
+      background: rgba(255, 248, 233, 0.08);
+      border: 1px solid rgba(244, 234, 214, 0.14);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 14px 34px rgba(0,0,0,.18);
+    }
+
+    .feature-card .icon,
+    .recommend-card .icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: rgba(201, 155, 69, 0.16);
+      color: var(--gold);
+      font-size: 24px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(201, 155, 69, 0.22);
+    }
+
+    h3 {
+      font-size: 21px;
+      margin-bottom: 10px;
+      letter-spacing: 0.04em;
+    }
+
+    .muted {
+      color: rgba(244, 234, 214, 0.74);
+      font-family: "Yu Gothic", "Meiryo", sans-serif;
+      font-size: 15px;
+    }
+
+    .exhibition {
+      background: linear-gradient(180deg, rgba(255,248,233,0.05), rgba(0,0,0,0.16));
+      border-top: 1px solid rgba(244, 234, 214, 0.1);
+      border-bottom: 1px solid rgba(244, 234, 214, 0.1);
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 36px;
+    }
+
+    .photo-card {
+      background: rgba(13, 11, 9, 0.5);
+      border-radius: 22px;
+      padding: 14px;
+      border: 1px solid rgba(244, 234, 214, 0.12);
+    }
+
+    .photo-placeholder {
+      min-height: 250px;
+      border: 2px dashed rgba(244, 234, 214, 0.28);
+      background:
+        linear-gradient(135deg, rgba(140, 132, 120, 0.34), rgba(72, 65, 58, 0.42)),
+        repeating-linear-gradient(-45deg, rgba(255,255,255,.05) 0 8px, transparent 8px 16px);
+      color: rgba(255, 248, 233, 0.86);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border-radius: 16px;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .photo-card p {
+      padding: 14px 4px 2px;
+      color: rgba(244, 234, 214, 0.76);
+      font-family: "Yu Gothic", "Meiryo", sans-serif;
+      font-size: 14px;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .guide-card {
+      padding: 30px;
+      background: var(--paper);
+      color: var(--black);
+      border-color: rgba(201, 155, 69, 0.35);
+    }
+
+    .guide-list {
+      list-style: none;
+      margin-top: 18px;
+      font-family: "Yu Gothic", "Meiryo", sans-serif;
+    }
+
+    .guide-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(61, 42, 27, 0.18);
+    }
+
+    .guide-list strong {
+      color: var(--brown-dark);
+      white-space: nowrap;
+    }
+
+    .guide-note {
+      margin-top: 18px;
+      padding: 14px 16px;
+      background: rgba(111, 74, 43, 0.1);
+      border-left: 4px solid var(--brown);
+      font-family: "Yu Gothic", "Meiryo", sans-serif;
+      font-size: 14px;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 22px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: linear-gradient(var(--gold), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 22px;
+      padding: 20px;
+      border-radius: 16px;
+      background: rgba(255, 248, 233, 0.08);
+      border: 1px solid rgba(244, 234, 214, 0.12);
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -21px;
+      top: 26px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 5px rgba(201, 155, 69, 0.16);
+    }
+
+    .access-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: center;
+      padding: 34px;
+      border-radius: 28px;
+      background: linear-gradient(145deg, rgba(244, 234, 214, 0.12), rgba(111, 74, 43, 0.18));
+      border: 1px solid rgba(244, 234, 214, 0.14);
+      box-shadow: var(--shadow);
+    }
+
+    .map-placeholder {
+      min-height: 310px;
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg, rgba(224, 207, 173, 0.16), rgba(75, 50, 32, 0.28)),
+        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size: auto, 36px 36px, 36px 36px;
+      border: 1px solid rgba(244, 234, 214, 0.18);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: rgba(244, 234, 214, 0.82);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 24px;
+    }
+
+    .contact {
+      text-align: center;
+      background: radial-gradient(circle at center, rgba(179, 43, 34, 0.16), transparent 36rem);
+    }
+
+    .contact-panel {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 44px 28px;
+      border-radius: 30px;
+      background: rgba(13, 11, 9, 0.74);
+      border: 1px solid rgba(244, 234, 214, 0.16);
+      box-shadow: var(--shadow);
+    }
+
+    .tel-large {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: min(100%, 520px);
+      min-height: 74px;
+      margin: 26px auto 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #e4483b, #861811);
+      color: #fff;
+      font-size: clamp(22px, 5vw, 34px);
+      font-family: "Yu Gothic", "Meiryo", sans-serif;
+      font-weight: 900;
+      box-shadow: 0 18px 40px rgba(179, 43, 34, 0.48);
+    }
+
+    .footer {
+      padding: 34px 0 92px;
+      background: var(--deep-black);
+      border-top: 1px solid rgba(244, 234, 214, 0.12);
+      color: rgba(244, 234, 214, 0.68);
+      font-family: "Yu Gothic", "Meiryo", sans-serif;
+      font-size: 13px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .notice {
+      max-width: 720px;
+      color: rgba(244, 234, 214, 0.78);
+    }
+
+    .fixed-call {
+      display: none;
+      position: fixed;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      z-index: 80;
+      min-height: 58px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #e4483b, #861811);
+      color: #fff;
+      align-items: center;
+      justify-content: center;
+      font-family: "Yu Gothic", "Meiryo", sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+      box-shadow: 0 16px 34px rgba(0,0,0,.42);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 960px) {
+      .nav {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 58px;
+      }
+
+      .hero-grid,
+      .guide-grid,
+      .access-box {
+        grid-template-columns: 1fr;
+      }
+
+      .features-grid,
+      .recommend-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .photo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .photo-placeholder.hero-photo {
+        height: 320px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .header-inner {
+        min-height: 62px;
+      }
+
+      .logo-text small {
+        display: block;
+        font-size: 11px;
+        color: rgba(244, 234, 214, 0.65);
+      }
+
+      section {
+        padding: 62px 0;
+      }
+
+      .hero {
+        padding: 44px 0 54px;
+      }
+
+      .cta-row .btn {
+        width: 100%;
+      }
+
+      .info-strip,
+      .features-grid,
+      .recommend-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stamp {
+        width: 116px;
+        height: 116px;
+        right: 6px;
+        bottom: 18px;
+        font-size: 13px;
+      }
+
+      .guide-list li {
+        display: block;
+      }
+
+      .guide-list strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .access-box,
+      .contact-panel {
+        padding: 24px 18px;
+      }
+
+      .footer-inner {
+        display: block;
+      }
+
+      .fixed-call {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#top" class="logo" aria-label="みろく沢炭砿資料館 トップへ">
+        <span class="logo-mark">炭</span>
+        <span class="logo-text">みろく沢炭砿資料館<br><small>地域歴史博物館</small></span>
+      </a>
+      <nav class="nav" aria-label="ページ内メニュー">
+        <a href="#features">特徴</a>
+        <a href="#exhibition">展示</a>
+        <a href="#guide">見学案内</a>
+        <a href="#access">アクセス</a>
+        <a href="#contact">お問い合わせ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <div class="badge">いわきの炭鉱文化を伝える地域歴史博物館</div>
+          <h1>炭鉱の記憶を、<br>次の世代へ。</h1>
+          <p class="hero-lead">
+            みろく沢炭砿資料館は、炭鉱で使われていた道具、当時の写真資料、トロッコやカンテラなどを通じて、いわきの炭鉱文化を学べる資料館です。
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-phone" href="tel:0246266282">☎ 電話する 0246-26-6282</a>
+            <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=%E3%81%BF%E3%82%8D%E3%81%8F%E6%B2%A2%E7%82%AD%E7%A0%BF%E8%B3%87%E6%96%99%E9%A4%A8%20%E7%A6%8F%E5%B3%B6%E7%9C%8C%E3%81%84%E3%82%8F%E3%81%8D%E5%B8%82%E5%86%85%E9%83%B7%E7%99%BD%E6%B0%B4%E7%94%BA%E5%BA%83%E7%95%91223" target="_blank" rel="noopener">📍 Googleマップで見る</a>
+            <a class="btn btn-outline" href="#guide">見学案内を見る</a>
+          </div>
+          <div class="info-strip">
+            <div class="info-card"><span>所在地</span>福島県いわき市内郷白水町</div>
+            <div class="info-card"><span>営業時間</span>9:00〜16:30</div>
+            <div class="info-card"><span>カテゴリ</span>地域歴史博物館</div>
+          </div>
+        </div>
+        <div class="hero-panel reveal">
+          <div class="photo-placeholder hero-photo">展示写真</div>
+          <div class="stamp">昭和レトロ<br>炭鉱資料<br>見学案内</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container reveal">
+        <div class="section-title">
+          <span class="en">Features</span>
+          <h2>資料館の特徴</h2>
+        </div>
+        <p class="lead-text">
+          黒い石炭、年季の入った道具、昭和の空気を感じる展示空間。観光だけでなく、地域学習や親子での歴史体験にも向いた、いわきならではの文化スポットです。
+        </p>
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="icon">⛏</div>
+            <h3>炭鉱道具の展示</h3>
+            <p class="muted">炭鉱で実際に使われていた道具や資料を通じて、当時の仕事と暮らしを感じられます。</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon">🚋</div>
+            <h3>トロッコ・カンテラ</h3>
+            <p class="muted">炭鉱の現場を象徴する展示品があり、写真だけでは伝わらない重みを体感できます。</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon">📷</div>
+            <h3>当時の写真資料</h3>
+            <p class="muted">いわきの炭鉱文化を知る手がかりとなる、貴重な写真資料に触れられます。</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon">🗣</div>
+            <h3>丁寧な説明が好評</h3>
+            <p class="muted">館長さんによる説明が好評。資料の背景まで理解しやすいのが魅力です。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="exhibition" class="exhibition">
+      <div class="container reveal">
+        <div class="section-title">
+          <span class="en">Exhibition</span>
+          <h2>展示内容</h2>
+        </div>
+        <p class="lead-text">
+          炭鉱の道具、暮らしの記録、作業現場の空気を伝える展示を通して、いわきが歩んできた近代産業の歴史を学べます。
+        </p>
+        <div class="photo-grid">
+          <article class="photo-card">
+            <div class="photo-placeholder">展示写真</div>
+            <p>炭鉱文化を伝える資料や写真を展示。</p>
+          </article>
+          <article class="photo-card">
+            <div class="photo-placeholder">館内写真</div>
+            <p>昭和レトロな雰囲気を感じる館内イメージ。</p>
+          </article>
+          <article class="photo-card">
+            <div class="photo-placeholder">炭鉱道具写真</div>
+            <p>トロッコ、カンテラ、作業道具などの展示イメージ。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="guide">
+      <div class="container guide-grid reveal">
+        <div>
+          <div class="section-title">
+            <span class="en">Visit Guide</span>
+            <h2>見学案内</h2>
+          </div>
+          <p class="lead-text">
+            訪問前に営業時間や所在地をご確認ください。見学や説明について気になる点がある場合は、電話での確認がおすすめです。
+          </p>
+        </div>
+        <aside class="guide-card">
+          <h3>基本情報</h3>
+          <ul class="guide-list">
+            <li><strong>施設名</strong><span>みろく沢炭砿資料館</span></li>
+            <li><strong>所在地</strong><span>〒973-8405 福島県いわき市内郷白水町広畑223</span></li>
+            <li><strong>電話番号</strong><span>0246-26-6282</span></li>
+            <li><strong>営業時間</strong><span>9:00〜16:30</span></li>
+            <li><strong>カテゴリ</strong><span>地域歴史博物館</span></li>
+          </ul>
+          <p class="guide-note">営業時間・見学条件は変更される場合があります。訪問前に電話で確認すると安心です。</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="recommend">
+      <div class="container reveal">
+        <div class="section-title">
+          <span class="en">Recommended For</span>
+          <h2>こんな方におすすめ</h2>
+        </div>
+        <div class="recommend-grid">
+          <article class="recommend-card">
+            <div class="icon">👨‍👩‍👧</div>
+            <h3>親子の地域学習に</h3>
+            <p class="muted">教科書だけでは分かりにくい地域の歴史を、実物資料を通じて学べます。</p>
+          </article>
+          <article class="recommend-card">
+            <div class="icon">🏛</div>
+            <h3>歴史好きの方に</h3>
+            <p class="muted">いわきの近代産業や炭鉱文化に興味がある方に向いています。</p>
+          </article>
+          <article class="recommend-card">
+            <div class="icon">📸</div>
+            <h3>昭和レトロ好きに</h3>
+            <p class="muted">古い道具や写真資料から、昭和の空気感を楽しめます。</p>
+          </article>
+          <article class="recommend-card">
+            <div class="icon">🚗</div>
+            <h3>いわき観光の寄り道に</h3>
+            <p class="muted">内郷エリアの文化スポットとして、観光ルートに組み込みやすい場所です。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="access">
+      <div class="container reveal">
+        <div class="section-title">
+          <span class="en">Access</span>
+          <h2>アクセス</h2>
+        </div>
+        <div class="access-box">
+          <div>
+            <h3>みろく沢炭砿資料館</h3>
+            <p class="lead-text">〒973-8405<br>福島県いわき市内郷白水町広畑223</p>
+            <div class="cta-row" style="margin-top: 24px; margin-bottom: 0;">
+              <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=%E3%81%BF%E3%82%8D%E3%81%8F%E6%B2%A2%E7%82%AD%E7%A0%BF%E8%B3%87%E6%96%99%E9%A4%A8%20%E7%A6%8F%E5%B3%B6%E7%9C%8C%E3%81%84%E3%82%8F%E3%81%8D%E5%B8%82%E5%86%85%E9%83%B7%E7%99%BD%E6%B0%B4%E7%94%BA%E5%BA%83%E7%95%91223" target="_blank" rel="noopener">📍 Googleマップを開く</a>
+            </div>
+          </div>
+          <div class="map-placeholder">
+            地図イメージ枠<br>
+            <span style="font-size:14px; font-weight:400; margin-top:8px; display:block;">※Googleマップ写真は使用していません</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="container reveal">
+        <div class="contact-panel">
+          <div class="section-title" style="margin-bottom: 16px;">
+            <span class="en">Contact</span>
+            <h2>お問い合わせ</h2>
+          </div>
+          <p class="lead-text" style="margin: 0 auto;">
+            見学前の確認、営業時間、展示内容については、下記の電話番号へお問い合わせください。
+          </p>
+          <a class="tel-large" href="tel:0246266282">☎ 0246-26-6282</a>
+          <p class="muted">スマートフォンではタップして発信できます。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>みろく沢炭砿資料館</strong><br>
+        〒973-8405 福島県いわき市内郷白水町広畑223
+      </div>
+      <p class="notice">
+        ※このページは営業提案用に作成した非公式の試作ページです。みろく沢炭砿資料館の公式ホームページではありません。掲載内容は公開前に施設関係者による確認が必要です。
+      </p>
+    </div>
+  </footer>
+
+  <a class="fixed-call" href="tel:0246266282">☎ 電話する 0246-26-6282</a>
+
+  <script>
+    const revealElements = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealElements.forEach((el) => observer.observe(el));
+
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', (event) => {
+        const target = document.querySelector(anchor.getAttribute('href'));
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  </script>
+</body>
+</html>
