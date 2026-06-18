@@ -703,8 +703,32 @@
 
     .footer-inner {
       display: flex;
+      align-items: flex-start;
       justify-content: space-between;
       gap: 16px;
+    }
+
+    .footer-copy,
+    .footer-credit {
+      margin: 0;
+    }
+
+    .footer-credit {
+      text-align: right;
+    }
+
+    .support-label {
+      display: block;
+      color: rgba(244, 234, 216, 0.52);
+      font-size: 12px;
+    }
+
+    .support-name {
+      display: block;
+      margin-top: 2px;
+      color: rgba(244, 234, 216, 0.78);
+      font-weight: 700;
+      letter-spacing: 0.04em;
     }
 
     .reveal {
@@ -852,6 +876,10 @@
 
       .footer-inner {
         flex-direction: column;
+      }
+
+      .footer-credit {
+        text-align: left;
       }
     }
   </style>
@@ -1124,8 +1152,11 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <span>みろく沢炭砿資料館</span>
-      <span><span id="year"></span> みろく沢炭砿資料館</span>
+      <p class="footer-copy"><span id="year"></span> みろく沢炭砿資料館</p>
+      <p class="footer-credit">
+        <span class="support-label">制作・運営サポート</span>
+        <span class="support-name">Web改善ラボ</span>
+      </p>
     </div>
   </footer>
 
