@@ -1,43 +1,57 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>みろく沢炭砿資料館｜非公式試作ページ</title>
-  <meta name="description" content="福島県いわき市内郷白水町にある、炭鉱文化を学べる地域歴史博物館『みろく沢炭砿資料館』の非公式試作ページです。" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>みろく沢炭砿資料館｜いわき市内郷白水町の地域歴史博物館</title>
+  <meta name="description" content="福島県いわき市内郷白水町にある、みろく沢炭砿資料館の公式サイトです。炭鉱文化と地域の記憶を落ち着いた雰囲気で紹介します。">
+  <meta name="robots" content="index, follow">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="#1d130d">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:title" content="みろく沢炭砿資料館｜いわき市内郷白水町の地域歴史博物館">
+  <meta property="og:description" content="炭鉱文化と地域の記憶にふれる、みろく沢炭砿資料館の公式サイトです。">
+  <meta property="og:image" content="https://raw.githubusercontent.com/tyzhsnsa/image/main/10.jpg">
+  <link rel="preconnect" href="https://raw.githubusercontent.com">
+  <link rel="preload" as="image" href="https://raw.githubusercontent.com/tyzhsnsa/image/main/10.jpg">
   <style>
     :root {
-      --black: #171310;
-      --deep-black: #0d0b09;
-      --brown: #6f4a2b;
-      --brown-dark: #3d2a1b;
-      --brown-light: #9b6a3d;
-      --cream: #f4ead6;
-      --cream-deep: #e0cfad;
-      --paper: #fff8e9;
-      --red: #b32b22;
-      --gold: #c99b45;
-      --gray: #8d877e;
-      --shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+      --coal: #0f0b08;
+      --coal-soft: #17100c;
+      --brown: #2c1d14;
+      --brown-2: #3b281b;
+      --brown-3: #5a3a24;
+      --rust: #a94f2a;
+      --brass: #c39a52;
+      --cream: #f4ead8;
+      --paper: #fff7e8;
+      --muted: #d7c7ad;
+      --line: rgba(244, 234, 216, 0.16);
+      --shadow: 0 22px 52px rgba(0, 0, 0, 0.34);
+      --radius: 8px;
+      --font-sans: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+      --font-serif: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
     }
 
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     html {
       scroll-behavior: smooth;
+      background: var(--coal);
     }
 
     body {
-      font-family: "Hiragino Mincho ProN", "Yu Mincho", "Yu Gothic", "Meiryo", serif;
+      margin: 0;
       color: var(--cream);
+      font-family: var(--font-sans);
+      line-height: 1.8;
       background:
-        radial-gradient(circle at top left, rgba(201, 155, 69, 0.18), transparent 32rem),
-        linear-gradient(135deg, #100d0b 0%, #23170f 48%, #0b0908 100%);
-      line-height: 1.75;
+        linear-gradient(180deg, rgba(15, 11, 8, 0.12), rgba(15, 11, 8, 0.82)),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 10px),
+        var(--coal);
       overflow-x: hidden;
     }
 
@@ -45,13 +59,11 @@
       content: "";
       position: fixed;
       inset: 0;
-      pointer-events: none;
-      opacity: 0.09;
-      background-image:
-        linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px),
-        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px);
-      background-size: 22px 22px;
       z-index: -1;
+      pointer-events: none;
+      background:
+        linear-gradient(135deg, rgba(195, 154, 82, 0.08), transparent 42%),
+        linear-gradient(315deg, rgba(169, 79, 42, 0.08), transparent 38%);
     }
 
     a {
@@ -60,8 +72,31 @@
     }
 
     img {
-      max-width: 100%;
       display: block;
+      max-width: 100%;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 1000;
+      transform: translateY(-150%);
+      padding: 10px 14px;
+      color: var(--coal);
+      background: var(--cream);
+      border-radius: var(--radius);
+      transition: transform 0.2s ease;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
     }
 
     .container {
@@ -72,856 +107,1092 @@
     .site-header {
       position: sticky;
       top: 0;
-      z-index: 50;
-      background: rgba(13, 11, 9, 0.88);
+      z-index: 100;
+      background: rgba(15, 11, 8, 0.9);
+      border-bottom: 1px solid var(--line);
       backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(244, 234, 214, 0.12);
     }
 
     .header-inner {
-      min-height: 72px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 18px;
+      gap: 20px;
+      min-height: 72px;
     }
 
-    .logo {
-      display: flex;
+    .brand {
+      display: inline-flex;
       align-items: center;
       gap: 12px;
+      min-width: 0;
+      font-family: var(--font-serif);
       font-weight: 700;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
     }
 
-    .logo-mark {
-      width: 42px;
-      height: 42px;
-      border: 2px solid var(--gold);
+    .brand-mark {
       display: grid;
       place-items: center;
+      flex: 0 0 auto;
+      width: 42px;
+      height: 42px;
+      color: var(--brass);
+      background: linear-gradient(145deg, #2a1b12, #0b0806);
+      border: 1px solid rgba(195, 154, 82, 0.74);
       border-radius: 50%;
-      background: linear-gradient(145deg, #2d2118, #070605);
-      box-shadow: inset 0 0 12px rgba(201, 155, 69, 0.35);
-      font-size: 20px;
+      box-shadow: inset 0 0 18px rgba(195, 154, 82, 0.22);
     }
 
-    .nav {
+    .brand-mark span {
+      width: 20px;
+      height: 20px;
+      border: 2px solid currentColor;
+      border-top-color: transparent;
+      border-left-color: transparent;
+      transform: rotate(45deg);
+    }
+
+    .brand-text {
+      overflow: hidden;
+      font-size: 16px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .menu-button {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      color: var(--cream);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      cursor: pointer;
+    }
+
+    .menu-lines,
+    .menu-lines::before,
+    .menu-lines::after {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: currentColor;
+      border-radius: 999px;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .menu-lines {
+      position: relative;
+    }
+
+    .menu-lines::before,
+    .menu-lines::after {
+      content: "";
+      position: absolute;
+      left: 0;
+    }
+
+    .menu-lines::before {
+      top: -7px;
+    }
+
+    .menu-lines::after {
+      top: 7px;
+    }
+
+    .menu-button[aria-expanded="true"] .menu-lines {
+      transform: rotate(45deg);
+    }
+
+    .menu-button[aria-expanded="true"] .menu-lines::before {
+      transform: translateY(7px) rotate(90deg);
+    }
+
+    .menu-button[aria-expanded="true"] .menu-lines::after {
+      opacity: 0;
+    }
+
+    .site-nav {
       display: flex;
-      gap: 18px;
-      font-family: "Yu Gothic", "Meiryo", sans-serif;
-      font-size: 14px;
-      color: rgba(244, 234, 214, 0.8);
+      align-items: center;
+      gap: 6px;
     }
 
-    .nav a:hover {
-      color: var(--gold);
+    .site-nav a {
+      padding: 10px 12px;
+      color: rgba(244, 234, 216, 0.82);
+      font-size: 14px;
+      border-radius: var(--radius);
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a:focus-visible {
+      color: var(--cream);
+      background: rgba(195, 154, 82, 0.14);
+      outline: none;
+    }
+
+    main {
+      isolation: isolate;
+    }
+
+    section {
+      scroll-margin-top: 92px;
     }
 
     .hero {
       position: relative;
-      min-height: 720px;
       display: flex;
       align-items: center;
-      padding: 92px 0 72px;
+      min-height: clamp(560px, 78svh, 720px);
+      padding: 74px 0 76px;
       overflow: hidden;
-      border-bottom: 1px solid rgba(244, 234, 214, 0.12);
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, rgba(15, 11, 8, 0.84) 0%, rgba(15, 11, 8, 0.58) 42%, rgba(15, 11, 8, 0.12) 100%),
+        linear-gradient(180deg, rgba(15, 11, 8, 0.04), rgba(15, 11, 8, 0.62)),
+        url("https://raw.githubusercontent.com/tyzhsnsa/image/main/10.jpg") center / cover no-repeat;
     }
 
     .hero::after {
       content: "";
       position: absolute;
-      inset: auto -10% -22% -10%;
-      height: 320px;
-      background: linear-gradient(180deg, transparent, rgba(0,0,0,0.72));
+      inset: auto 0 0;
+      height: 140px;
       pointer-events: none;
+      background: linear-gradient(180deg, transparent, rgba(15, 11, 8, 0.96));
     }
 
-    .hero-grid {
+    .hero-content {
       position: relative;
-      z-index: 2;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 52px;
-      align-items: center;
+      z-index: 1;
+      width: min(760px, 100%);
     }
 
-    .badge {
+    .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 8px 14px;
-      border: 1px solid rgba(201, 155, 69, 0.55);
-      border-radius: 999px;
-      background: rgba(61, 42, 27, 0.72);
-      color: var(--cream-deep);
+      margin: 0 0 20px;
+      padding: 8px 13px;
+      color: var(--muted);
       font-size: 14px;
-      font-family: "Yu Gothic", "Meiryo", sans-serif;
-      margin-bottom: 22px;
+      letter-spacing: 0.08em;
+      background: rgba(44, 29, 20, 0.78);
+      border: 1px solid rgba(195, 154, 82, 0.42);
+      border-radius: 999px;
     }
 
-    .badge::before {
+    .eyebrow::before {
       content: "";
       width: 8px;
       height: 8px;
+      background: var(--brass);
       border-radius: 50%;
-      background: var(--gold);
-      box-shadow: 0 0 12px var(--gold);
+      box-shadow: 0 0 14px rgba(195, 154, 82, 0.8);
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: var(--font-serif);
+      line-height: 1.28;
+      letter-spacing: 0.04em;
     }
 
     h1 {
-      font-size: clamp(42px, 7vw, 78px);
+      max-width: 760px;
+      font-size: clamp(42px, 8vw, 84px);
       line-height: 1.08;
-      letter-spacing: 0.06em;
-      margin-bottom: 22px;
-      text-shadow: 0 5px 28px rgba(0,0,0,0.6);
+      text-shadow: 0 6px 30px rgba(0, 0, 0, 0.58);
     }
 
     .hero-lead {
       max-width: 680px;
+      margin: 24px 0 0;
+      color: rgba(244, 234, 216, 0.9);
       font-size: clamp(17px, 2.2vw, 22px);
-      color: rgba(244, 234, 214, 0.9);
-      margin-bottom: 32px;
+      font-weight: 500;
     }
 
-    .cta-row {
+    .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 14px;
-      margin-bottom: 30px;
+      gap: 12px;
+      margin-top: 30px;
     }
 
-    .btn {
+    .button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      min-height: 56px;
-      padding: 14px 24px;
-      border-radius: 999px;
-      font-family: "Yu Gothic", "Meiryo", sans-serif;
-      font-weight: 800;
-      letter-spacing: 0.03em;
-      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
-      border: 1px solid transparent;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-    }
-
-    .btn-phone {
-      background: linear-gradient(135deg, #d53a2e, #8f1d17);
-      color: #fff;
-      box-shadow: 0 12px 28px rgba(179, 43, 34, 0.45);
-      font-size: 18px;
-    }
-
-    .btn-map {
-      background: var(--cream);
-      color: var(--black);
-      box-shadow: 0 12px 26px rgba(244, 234, 214, 0.18);
-    }
-
-    .btn-outline {
-      border-color: rgba(244, 234, 214, 0.38);
+      min-height: 52px;
+      padding: 13px 20px;
       color: var(--cream);
-      background: rgba(255,255,255,0.04);
-    }
-
-    .info-strip {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      max-width: 780px;
-    }
-
-    .info-card {
-      padding: 16px;
-      background: rgba(13, 11, 9, 0.58);
-      border: 1px solid rgba(244, 234, 214, 0.14);
-      border-radius: 16px;
-    }
-
-    .info-card span {
-      display: block;
-      font-family: "Yu Gothic", "Meiryo", sans-serif;
-      font-size: 12px;
-      color: var(--gold);
-      margin-bottom: 4px;
-    }
-
-    .hero-panel {
-      position: relative;
-      padding: 18px;
-      border-radius: 28px;
-      background: linear-gradient(145deg, rgba(244, 234, 214, .18), rgba(111, 74, 43, .18));
-      border: 1px solid rgba(244, 234, 214, 0.18);
-      box-shadow: var(--shadow);
-    }
-
-    .photo-placeholder.hero-photo {
-      height: 430px;
-      border-radius: 22px;
-      font-size: 24px;
-    }
-
-    .stamp {
-      position: absolute;
-      right: -10px;
-      bottom: 28px;
-      width: 148px;
-      height: 148px;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      border: 3px solid rgba(201, 155, 69, 0.8);
-      color: var(--gold);
-      border-radius: 50%;
-      transform: rotate(-10deg);
-      background: rgba(13, 11, 9, 0.84);
       font-weight: 700;
-      line-height: 1.45;
-      letter-spacing: 0.06em;
+      line-height: 1.35;
+      background: var(--brown-3);
+      border: 1px solid rgba(244, 234, 216, 0.18);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
     }
 
-    section {
-      padding: 86px 0;
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+      background: #70472a;
+      border-color: rgba(244, 234, 216, 0.28);
+      outline: none;
     }
 
-    .section-title {
+    .button-primary {
+      color: #1d130d;
+      background: var(--brass);
+      border-color: transparent;
+    }
+
+    .button-primary:hover,
+    .button-primary:focus-visible {
+      color: #1d130d;
+      background: #d4ad67;
+    }
+
+    .hero-facts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-facts li {
+      padding: 8px 12px;
+      color: rgba(244, 234, 216, 0.88);
+      font-size: 14px;
+      background: rgba(15, 11, 8, 0.48);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .section {
+      padding: clamp(72px, 9vw, 112px) 0;
+    }
+
+    .section-alt {
+      background:
+        linear-gradient(180deg, rgba(44, 29, 20, 0.7), rgba(23, 16, 12, 0.76)),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 9px);
+      border-block: 1px solid var(--line);
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(280px, 0.62fr);
+      gap: 32px;
+      align-items: end;
       margin-bottom: 34px;
     }
 
-    .section-title .en {
-      display: block;
-      color: var(--gold);
-      font-family: "Yu Gothic", "Meiryo", sans-serif;
-      font-size: 13px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
+    .section-kicker {
+      margin: 0 0 11px;
+      color: var(--brass);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
     }
 
-    h2 {
-      font-size: clamp(30px, 4.5vw, 48px);
-      line-height: 1.25;
-      letter-spacing: 0.05em;
+    .section h2 {
+      font-size: clamp(30px, 4.4vw, 50px);
     }
 
-    .lead-text {
-      max-width: 780px;
-      color: rgba(244, 234, 214, 0.84);
-      font-size: 17px;
+    .section-lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
     }
 
-    .資料館の特徴-grid,
+    .feature-grid,
+    .exhibit-grid,
     .recommend-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
       gap: 18px;
-      margin-top: 36px;
+      align-items: stretch;
+    }
+
+    .feature-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .feature-card,
+    .exhibit-card,
     .recommend-card,
-    .guide-card {
-      background: rgba(255, 248, 233, 0.08);
-      border: 1px solid rgba(244, 234, 214, 0.14);
-      border-radius: 20px;
-      padding: 24px;
-      box-shadow: 0 14px 34px rgba(0,0,0,.18);
+    .guide-card,
+    .contact-panel,
+    .access-detail,
+    .map-frame {
+      background: rgba(36, 24, 17, 0.9);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
     }
 
-    .feature-card .icon,
-    .recommend-card .icon {
-      width: 48px;
-      height: 48px;
-      display: grid;
-      place-items: center;
-      border-radius: 14px;
-      background: rgba(201, 155, 69, 0.16);
-      color: var(--gold);
-      font-size: 24px;
-      margin-bottom: 16px;
-      border: 1px solid rgba(201, 155, 69, 0.22);
+    .feature-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 260px;
+      padding: 26px;
     }
 
-    h3 {
-      font-size: 21px;
-      margin-bottom: 10px;
-      letter-spacing: 0.04em;
+    .number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      margin-bottom: 28px;
+      color: var(--coal);
+      font-family: var(--font-serif);
+      font-weight: 700;
+      background: var(--brass);
+      border-radius: 50%;
     }
 
-    .muted {
-      color: rgba(244, 234, 214, 0.74);
-      font-family: "Yu Gothic", "Meiryo", sans-serif;
+    .feature-card h3,
+    .exhibit-card h3,
+    .recommend-card h3,
+    .guide-card h3 {
+      font-size: 22px;
+    }
+
+    .feature-card p,
+    .exhibit-card p,
+    .recommend-card p,
+    .guide-card p {
+      margin: 14px 0 0;
+      color: var(--muted);
       font-size: 15px;
     }
 
-    .展示内容 {
-      background: linear-gradient(180deg, rgba(255,248,233,0.05), rgba(0,0,0,0.16));
-      border-top: 1px solid rgba(244, 234, 214, 0.1);
-      border-bottom: 1px solid rgba(244, 234, 214, 0.1);
+    .feature-card p {
+      flex: 1;
     }
 
-    .photo-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 36px;
+    .wide-photo {
+      position: relative;
+      overflow: hidden;
+      margin-top: 34px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
     }
 
-    .photo-card {
-      background: rgba(13, 11, 9, 0.5);
-      border-radius: 22px;
-      padding: 14px;
-      border: 1px solid rgba(244, 234, 214, 0.12);
+    .wide-photo img {
+      width: 100%;
+      height: min(430px, 46vw);
+      min-height: 260px;
+      object-fit: cover;
     }
 
-    .photo-placeholder {
-      min-height: 250px;
-      border: 2px dashed rgba(244, 234, 214, 0.28);
-      background:
-        linear-gradient(135deg, rgba(140, 132, 120, 0.34), rgba(72, 65, 58, 0.42)),
-        repeating-linear-gradient(-45deg, rgba(255,255,255,.05) 0 8px, transparent 8px 16px);
-      color: rgba(255, 248, 233, 0.86);
-      display: grid;
-      place-items: center;
-      text-align: center;
-      border-radius: 16px;
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-    }
-
-    .photo-card p {
-      padding: 14px 4px 2px;
-      color: rgba(244, 234, 214, 0.76);
-      font-family: "Yu Gothic", "Meiryo", sans-serif;
+    .wide-photo figcaption {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      max-width: min(520px, calc(100% - 36px));
+      padding: 12px 14px;
+      color: rgba(244, 234, 216, 0.92);
       font-size: 14px;
+      background: rgba(15, 11, 8, 0.76);
+      border: 1px solid rgba(244, 234, 216, 0.14);
+      border-radius: var(--radius);
+      backdrop-filter: blur(8px);
     }
 
-    .guide-grid {
+    .exhibit-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .exhibit-card {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-height: 390px;
+    }
+
+    .exhibit-card img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-bottom: 1px solid var(--line);
+      filter: saturate(0.88) contrast(1.04);
+    }
+
+    .exhibit-body {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .exhibit-body p {
+      flex: 1;
+    }
+
+    .guide-layout {
       display: grid;
-      grid-template-columns: 0.92fr 1.08fr;
-      gap: 22px;
+      grid-template-columns: 0.88fr 1.12fr;
+      gap: 18px;
       align-items: stretch;
     }
 
     .guide-card {
-      padding: 30px;
-      background: var(--paper);
-      color: var(--black);
-      border-color: rgba(201, 155, 69, 0.35);
+      padding: 26px;
+    }
+
+    .guide-main {
+      background:
+        linear-gradient(135deg, rgba(195, 154, 82, 0.16), transparent 54%),
+        rgba(36, 24, 17, 0.94);
     }
 
     .guide-list {
+      display: grid;
+      gap: 12px;
+      margin: 22px 0 0;
+      padding: 0;
       list-style: none;
-      margin-top: 18px;
-      font-family: "Yu Gothic", "Meiryo", sans-serif;
     }
 
     .guide-list li {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 110px minmax(0, 1fr);
       gap: 16px;
       padding: 15px 0;
-      border-bottom: 1px solid rgba(61, 42, 27, 0.18);
+      border-top: 1px solid var(--line);
     }
 
-    .guide-list strong {
-      color: var(--brown-dark);
-      white-space: nowrap;
+    .guide-list span {
+      color: var(--brass);
+      font-weight: 700;
     }
 
     .guide-note {
-      margin-top: 18px;
-      padding: 14px 16px;
-      background: rgba(111, 74, 43, 0.1);
-      border-left: 4px solid var(--brown);
-      font-family: "Yu Gothic", "Meiryo", sans-serif;
-      font-size: 14px;
+      margin-top: 20px;
+      padding: 16px;
+      color: rgba(244, 234, 216, 0.9);
+      background: rgba(15, 11, 8, 0.32);
+      border-left: 4px solid var(--brass);
+      border-radius: 0 var(--radius) var(--radius) 0;
     }
 
-    .timeline {
-      position: relative;
-      padding-left: 22px;
+    .recommend-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
-    .timeline::before {
-      content: "";
-      position: absolute;
-      left: 6px;
-      top: 8px;
-      bottom: 8px;
-      width: 2px;
-      background: linear-gradient(var(--gold), transparent);
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 22px;
-      padding: 20px;
-      border-radius: 16px;
-      background: rgba(255, 248, 233, 0.08);
-      border: 1px solid rgba(244, 234, 214, 0.12);
-    }
-
-    .timeline-item::before {
-      content: "";
-      position: absolute;
-      left: -21px;
-      top: 26px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--gold);
-      box-shadow: 0 0 0 5px rgba(201, 155, 69, 0.16);
-    }
-
-    .アクセス-box {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      align-items: center;
-      padding: 34px;
-      border-radius: 28px;
-      background: linear-gradient(145deg, rgba(244, 234, 214, 0.12), rgba(111, 74, 43, 0.18));
-      border: 1px solid rgba(244, 234, 214, 0.14);
-      box-shadow: var(--shadow);
-    }
-
-    .map-placeholder {
-      min-height: 310px;
-      border-radius: 20px;
-      background:
-        linear-gradient(135deg, rgba(224, 207, 173, 0.16), rgba(75, 50, 32, 0.28)),
-        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px),
-        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px);
-      background-size: auto, 36px 36px, 36px 36px;
-      border: 1px solid rgba(244, 234, 214, 0.18);
-      display: grid;
-      place-items: center;
-      text-align: center;
-      color: rgba(244, 234, 214, 0.82);
-      font-weight: 700;
-      letter-spacing: 0.05em;
+    .recommend-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 230px;
       padding: 24px;
     }
 
-    .お問い合わせ {
-      text-align: center;
-      background: radial-gradient(circle at center, rgba(179, 43, 34, 0.16), transparent 36rem);
+    .recommend-mark {
+      width: 34px;
+      height: 34px;
+      margin-bottom: 22px;
+      background:
+        linear-gradient(45deg, transparent 45%, var(--brass) 45% 55%, transparent 55%),
+        linear-gradient(-45deg, transparent 45%, var(--brass) 45% 55%, transparent 55%);
+      border: 1px solid rgba(195, 154, 82, 0.34);
+      border-radius: 50%;
     }
 
-    .お問い合わせ-panel {
-      max-width: 850px;
-      margin: 0 auto;
-      padding: 44px 28px;
-      border-radius: 30px;
-      background: rgba(13, 11, 9, 0.74);
-      border: 1px solid rgba(244, 234, 214, 0.16);
-      box-shadow: var(--shadow);
+    .access-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      align-items: stretch;
     }
 
-    .tel-large {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: min(100%, 520px);
-      min-height: 74px;
-      margin: 26px auto 14px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #e4483b, #861811);
-      color: #fff;
-      font-size: clamp(22px, 5vw, 34px);
-      font-family: "Yu Gothic", "Meiryo", sans-serif;
-      font-weight: 900;
-      box-shadow: 0 18px 40px rgba(179, 43, 34, 0.48);
+    .access-detail {
+      padding: 28px;
     }
 
-    .footer {
-      padding: 34px 0 92px;
-      background: var(--deep-black);
-      border-top: 1px solid rgba(244, 234, 214, 0.12);
-      color: rgba(244, 234, 214, 0.68);
-      font-family: "Yu Gothic", "Meiryo", sans-serif;
+    .info-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0 24px;
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .info-list li {
+      padding: 16px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .info-label {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--brass);
       font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .info-value {
+      display: block;
+      color: var(--cream);
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .info-value a {
+      text-decoration: underline;
+      text-decoration-color: rgba(195, 154, 82, 0.62);
+      text-underline-offset: 4px;
+    }
+
+    .map-frame {
+      overflow: hidden;
+      min-height: 360px;
+      background: rgba(15, 11, 8, 0.7);
+    }
+
+    .map-frame iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 360px;
+      border: 0;
+    }
+
+    .contact-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 28px;
+      align-items: center;
+      padding: clamp(26px, 5vw, 44px);
+      background:
+        linear-gradient(135deg, rgba(169, 79, 42, 0.22), transparent 48%),
+        rgba(36, 24, 17, 0.94);
+    }
+
+    .contact-panel h2 {
+      font-size: clamp(28px, 4vw, 44px);
+    }
+
+    .contact-panel p {
+      max-width: 720px;
+      margin: 14px 0 0;
+      color: var(--muted);
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    .site-footer {
+      padding: 34px 0;
+      color: rgba(244, 234, 216, 0.68);
+      font-size: 13px;
+      background: #0b0806;
+      border-top: 1px solid var(--line);
     }
 
     .footer-inner {
       display: flex;
       justify-content: space-between;
-      gap: 20px;
-      align-items: flex-start;
-    }
-
-    .notice {
-      max-width: 720px;
-      color: rgba(244, 234, 214, 0.78);
-    }
-
-    .fixed-call {
-      display: none;
-      position: fixed;
-      left: 14px;
-      right: 14px;
-      bottom: 14px;
-      z-index: 80;
-      min-height: 58px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #e4483b, #861811);
-      color: #fff;
-      align-items: center;
-      justify-content: center;
-      font-family: "Yu Gothic", "Meiryo", sans-serif;
-      font-size: 18px;
-      font-weight: 900;
-      box-shadow: 0 16px 34px rgba(0,0,0,.42);
+      gap: 16px;
     }
 
     .reveal {
       opacity: 0;
-      transform: translateY(24px);
-      transition: opacity .7s ease, transform .7s ease;
+      transform: translateY(18px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
-    .reveal.visible {
+    .reveal.is-visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    @media (max-width: 960px) {
-      .nav {
-        display: none;
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
       }
 
-      .hero {
-        min-height: auto;
-        padding-top: 58px;
-      }
-
-      .hero-grid,
-      .guide-grid,
-      .アクセス-box {
-        grid-template-columns: 1fr;
-      }
-
-      .資料館の特徴-grid,
-      .recommend-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .photo-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .photo-placeholder.hero-photo {
-        height: 320px;
+      .reveal {
+        opacity: 1;
+        transform: none;
       }
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 980px) {
+      .section-heading,
+      .guide-layout,
+      .access-layout,
+      .contact-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-grid,
+      .exhibit-grid,
+      .recommend-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .contact-actions {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 760px) {
       .container {
         width: min(100% - 28px, 1120px);
       }
 
       .header-inner {
-        min-height: 62px;
+        min-height: 64px;
       }
 
-      .logo-text small {
-        display: block;
-        font-size: 11px;
-        color: rgba(244, 234, 214, 0.65);
+      .menu-button {
+        display: inline-flex;
       }
 
-      section {
-        padding: 62px 0;
+      .site-nav {
+        position: absolute;
+        top: calc(100% + 1px);
+        right: 14px;
+        left: 14px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 10px;
+        background: rgba(15, 11, 8, 0.98);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+
+      .site-nav.is-open {
+        display: flex;
+      }
+
+      .site-nav a {
+        padding: 12px 14px;
       }
 
       .hero {
-        padding: 44px 0 54px;
+        min-height: auto;
+        padding: 68px 0 64px;
+        background:
+          linear-gradient(180deg, rgba(15, 11, 8, 0.56) 0%, rgba(15, 11, 8, 0.82) 72%, rgba(15, 11, 8, 0.9) 100%),
+          url("https://raw.githubusercontent.com/tyzhsnsa/image/main/10.jpg") center / cover no-repeat;
       }
 
-      .cta-row .btn {
+      h1 {
+        font-size: clamp(40px, 12vw, 58px);
+      }
+
+      .hero-actions,
+      .button {
         width: 100%;
       }
 
-      .info-strip,
-      .資料館の特徴-grid,
+      .button {
+        min-height: 50px;
+      }
+
+      .feature-grid,
+      .exhibit-grid,
       .recommend-grid {
         grid-template-columns: 1fr;
       }
 
-      .stamp {
-        width: 116px;
-        height: 116px;
-        right: 6px;
-        bottom: 18px;
-        font-size: 13px;
+      .feature-card,
+      .exhibit-card,
+      .recommend-card {
+        min-height: auto;
+      }
+
+      .wide-photo img {
+        height: 270px;
+      }
+
+      .wide-photo figcaption {
+        position: static;
+        max-width: none;
+        border-width: 1px 0 0;
+        border-radius: 0;
       }
 
       .guide-list li {
-        display: block;
+        grid-template-columns: 1fr;
+        gap: 4px;
       }
 
-      .guide-list strong {
-        display: block;
-        margin-bottom: 4px;
+      .info-list {
+        grid-template-columns: 1fr;
       }
 
-      .アクセス-box,
-      .お問い合わせ-panel {
-        padding: 24px 18px;
+      .map-frame,
+      .map-frame iframe {
+        min-height: 320px;
       }
 
       .footer-inner {
-        display: block;
-      }
-
-      .fixed-call {
-        display: flex;
+        flex-direction: column;
       }
     }
-  .section-title .en{display:none;} </style>
+  </style>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Museum",
+      "name": "みろく沢炭砿資料館",
+      "description": "福島県いわき市内郷白水町にある、炭鉱文化を伝える地域歴史博物館です。",
+      "image": "https://raw.githubusercontent.com/tyzhsnsa/image/main/10.jpg",
+      "telephone": "0246-26-6282",
+      "address": {
+        "@type": "PostalAddress",
+        "postalCode": "973-8405",
+        "addressRegion": "福島県",
+        "addressLocality": "いわき市",
+        "streetAddress": "内郷白水町広畑223",
+        "addressCountry": "JP"
+      },
+      "openingHours": "09:00-16:30"
+    }
+  </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">本文へ移動</a>
+
   <header class="site-header">
     <div class="container header-inner">
-      <a href="#top" class="logo" aria-label="みろく沢炭砿資料館 トップへ">
-        <span class="logo-mark">炭</span>
-        <span class="logo-text">みろく沢炭砿資料館<br><small>地域歴史博物館</small></span>
+      <a class="brand" href="#top" aria-label="みろく沢炭砿資料館の先頭へ">
+        <span class="brand-mark" aria-hidden="true"><span></span></span>
+        <span class="brand-text">みろく沢炭砿資料館</span>
       </a>
-      <nav class="nav" aria-label="ページ内メニュー">
-        <a href="#資料館の特徴">特徴</a>
-        <a href="#展示内容">展示</a>
+      <button class="menu-button" type="button" aria-label="メニューを開閉" aria-controls="site-nav" aria-expanded="false">
+        <span class="menu-lines" aria-hidden="true"></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="主要メニュー">
+        <a href="#features">特徴</a>
+        <a href="#exhibits">展示内容</a>
         <a href="#guide">見学案内</a>
-        <a href="#アクセス">アクセス</a>
-        <a href="#お問い合わせ">お問い合わせ</a>
+        <a href="#recommend">おすすめ</a>
+        <a href="#access">アクセス</a>
+        <a href="#contact">お問い合わせ</a>
       </nav>
     </div>
   </header>
 
-  <main id="top">
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy reveal">
-          <div class="badge">いわきの炭鉱文化を伝える地域歴史博物館</div>
-          <h1>炭鉱の記憶を、<br>次の世代へ。</h1>
-          <p class="hero-lead">
-            みろく沢炭砿資料館は、炭鉱で使われていた道具、当時の写真資料、トロッコやカンテラなどを通じて、いわきの炭鉱文化を学べる資料館です。
-          </p>
-          <div class="cta-row">
-            <a class="btn btn-phone" href="tel:0246266282">☎ 電話する 0246-26-6282</a>
-            <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=%E3%81%BF%E3%82%8D%E3%81%8F%E6%B2%A2%E7%82%AD%E7%A0%BF%E8%B3%87%E6%96%99%E9%A4%A8%20%E7%A6%8F%E5%B3%B6%E7%9C%8C%E3%81%84%E3%82%8F%E3%81%8D%E5%B8%82%E5%86%85%E9%83%B7%E7%99%BD%E6%B0%B4%E7%94%BA%E5%BA%83%E7%95%91223" target="_blank" rel="noopener">📍 Googleマップで見る</a>
-            <a class="btn btn-outline" href="#guide">見学案内を見る</a>
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="hero-content reveal">
+          <p class="eyebrow">地域歴史博物館</p>
+          <h1 id="hero-title">みろく沢炭砿資料館</h1>
+          <p class="hero-lead">いわき市内郷白水町に残る炭砿の記憶を、資料と空間から静かにたどる小さな歴史資料館です。</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#guide">見学案内を見る</a>
+            <a class="button" href="tel:0246266282">0246&#8209;26&#8209;6282へ電話</a>
           </div>
-          <div class="info-strip">
-            <div class="info-card"><span>所在地</span>福島県いわき市内郷白水町</div>
-            <div class="info-card"><span>営業時間</span>9:00〜16:30</div>
-            <div class="info-card"><span>カテゴリ</span>地域歴史博物館</div>
-          </div>
-        </div>
-        <div class="hero-panel reveal">
-          <div class="hero-photo" style="height:430px;border-radius:22px;overflow:hidden;"><img src="https://raw.githubusercontent.com/tyzhsnsa/image/main/10.jpg" alt="みろく沢炭砿資料館 外観" style="width:100%;height:100%;object-fit:cover;"></div>
-          <div class="stamp">昭和レトロ<br>炭鉱資料<br>見学案内</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="資料館の特徴">
-      <div class="container reveal">
-        <div class="section-title">
-          <span class="en">資料館の特徴</span>
-          <h2>資料館の特徴</h2>
-        </div>
-        <p class="lead-text">
-          黒い石炭、年季の入った道具、昭和の空気を感じる展示空間。観光だけでなく、地域学習や親子での歴史体験にも向いた、いわきならではの文化スポットです。
-        </p>
-        <div class="資料館の特徴-grid">
-          <article class="feature-card">
-            <div class="icon">⛏</div>
-            <h3>炭鉱道具の展示</h3>
-            <p class="muted">炭鉱で実際に使われていた道具や資料を通じて、当時の仕事と暮らしを感じられます。</p>
-          </article>
-          <article class="feature-card">
-            <div class="icon">🚋</div>
-            <h3>トロッコ・カンテラ</h3>
-            <p class="muted">炭鉱の現場を象徴する展示品があり、写真だけでは伝わらない重みを体感できます。</p>
-          </article>
-          <article class="feature-card">
-            <div class="icon">📷</div>
-            <h3>当時の写真資料</h3>
-            <p class="muted">いわきの炭鉱文化を知る手がかりとなる、貴重な写真資料に触れられます。</p>
-          </article>
-          <article class="feature-card">
-            <div class="icon">🗣</div>
-            <h3>丁寧な説明が好評</h3>
-            <p class="muted">館長さんによる説明が好評。資料の背景まで理解しやすいのが魅力です。</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="展示内容" class="展示内容">
-      <div class="container reveal">
-        <div class="section-title">
-          <span class="en">展示内容</span>
-          <h2>展示内容</h2>
-        </div>
-        <p class="lead-text">
-          炭鉱の道具、暮らしの記録、作業現場の空気を伝える展示を通して、いわきが歩んできた近代産業の歴史を学べます。
-        </p>
-        <div class="photo-grid">
-          <article class="photo-card">
-            <div class="photo-placeholder" style="min-height:250px;border:none;background:none;padding:0;overflow:hidden;border-radius:16px;"><img src="https://raw.githubusercontent.com/tyzhsnsa/image/main/7.jpg" alt="充電ランプとカンテラ" style="width:100%;height:250px;object-fit:cover;border-radius:16px;"></div>
-            <p>炭鉱文化を伝える資料や写真を展示。</p>
-          </article>
-          <article class="photo-card">
-            <div class="photo-placeholder" style="min-height:250px;border:none;background:none;padding:0;overflow:hidden;border-radius:16px;"><img src="https://raw.githubusercontent.com/tyzhsnsa/image/main/8.jpg" alt="館内" style="width:100%;height:250px;object-fit:cover;border-radius:16px;"></div>
-            <p>昭和レトロな雰囲気を感じる館内イメージ。</p>
-          </article>
-          <article class="photo-card">
-            <div style="min-height:250px;border:none;background:none;padding:0;overflow:hidden;border-radius:22px;"><img src="https://raw.githubusercontent.com/tyzhsnsa/image/main/2.jpg" alt="炭鉱道具" style="width:100%;height:100%;object-fit:cover;"></div> alt="炭鉱道具" style="width:100%;height:100%;object-fit:cover;"></div>
-            <p>トロッコ、カンテラ、作業道具などの展示イメージ。</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="guide">
-      <div class="container guide-grid reveal">
-        <div>
-          <div class="section-title">
-            <span class="en">見学案内</span>
-            <h2>見学案内</h2>
-          </div>
-          <p class="lead-text">
-            訪問前に営業時間や所在地をご確認ください。見学や説明について気になる点がある場合は、電話での確認がおすすめです。
-          </p>
-        </div>
-        <aside class="guide-card">
-          <h3>基本情報</h3>
-          <ul class="guide-list">
-            <li><strong>施設名</strong><span>みろく沢炭砿資料館</span></li>
-            <li><strong>所在地</strong><span>〒973-8405 福島県いわき市内郷白水町広畑223</span></li>
-            <li><strong>電話番号</strong><span>0246-26-6282</span></li>
-            <li><strong>営業時間</strong><span>9:00〜16:30</span></li>
-            <li><strong>カテゴリ</strong><span>地域歴史博物館</span></li>
+          <ul class="hero-facts">
+            <li>所在地：福島県いわき市内郷白水町</li>
+            <li>営業時間：9:00〜16:30</li>
+            <li>カテゴリ：地域歴史博物館</li>
           </ul>
-          <p class="guide-note">営業時間・見学条件は変更される場合があります。訪問前に電話で確認すると安心です。</p>
-        </aside>
-      </div>
-    </section>
-
-    <section id="recommend">
-      <div class="container reveal">
-        <div class="section-title">
-          <span class="en">こんな方におすすめ</span>
-          <h2>こんな方におすすめ</h2>
-        </div>
-        <div class="recommend-grid">
-          <article class="recommend-card">
-            <div class="icon">👨‍👩‍👧</div>
-            <h3>親子の地域学習に</h3>
-            <p class="muted">教科書だけでは分かりにくい地域の歴史を、実物資料を通じて学べます。</p>
-          </article>
-          <article class="recommend-card">
-            <div class="icon">🏛</div>
-            <h3>歴史好きの方に</h3>
-            <p class="muted">いわきの近代産業や炭鉱文化に興味がある方に向いています。</p>
-          </article>
-          <article class="recommend-card">
-            <div class="icon">📸</div>
-            <h3>昭和レトロ好きに</h3>
-            <p class="muted">古い道具や写真資料から、昭和の空気感を楽しめます。</p>
-          </article>
-          <article class="recommend-card">
-            <div class="icon">🚗</div>
-            <h3>いわき観光の寄り道に</h3>
-            <p class="muted">内郷エリアの文化スポットとして、観光ルートに組み込みやすい場所です。</p>
-          </article>
         </div>
       </div>
     </section>
 
-    <section id="アクセス">
-      <div class="container reveal">
-        <div class="section-title">
-          <span class="en">アクセス</span>
-          <h2>アクセス</h2>
-        </div>
-        <div class="アクセス-box">
+    <section class="section" id="features" aria-labelledby="features-title">
+      <div class="container">
+        <div class="section-heading reveal">
           <div>
-            <h3>みろく沢炭砿資料館</h3>
-            <p class="lead-text">〒973-8405<br>福島県いわき市内郷白水町広畑223</p>
-            <div class="cta-row" style="margin-top: 24px; margin-bottom: 0;">
-              <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=%E3%81%BF%E3%82%8D%E3%81%8F%E6%B2%A2%E7%82%AD%E7%A0%BF%E8%B3%87%E6%96%99%E9%A4%A8%20%E7%A6%8F%E5%B3%B6%E7%9C%8C%E3%81%84%E3%82%8F%E3%81%8D%E5%B8%82%E5%86%85%E9%83%B7%E7%99%BD%E6%B0%B4%E7%94%BA%E5%BA%83%E7%95%91223" target="_blank" rel="noopener">📍 Googleマップを開く</a>
-            </div>
+            <p class="section-kicker">資料館の特徴</p>
+            <h2 id="features-title">炭鉱文化を、身近な地域の記憶として伝える場所。</h2>
           </div>
-          <div class="map-placeholder">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6005.547269595856!2d140.83316946734135!3d37.03352699521885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60210fc664d8310b%3A0x613033227b459a4!2z44G_44KN44GP5rKi54Kt56C_6LOH5paZ6aSo!5e0!3m2!1sja!2sjp!4v1781761597813!5m2!1sja!2sjp" width="100%" height="330" style="border:0;border-radius:20px;overflow:hidden;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><br>
-            <span style="font-size:14px; font-weight:400; margin-top:8px; display:block;"></span>
+          <p class="section-lead">派手な展示演出ではなく、暮らしの道具や記録の積み重ねから、かつての産業と人々の営みを落ち着いて見つめられる構成です。</p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card reveal">
+            <span class="number">一</span>
+            <h3>地域に根ざした資料</h3>
+            <p>内郷白水町周辺の炭砿文化を伝える資料にふれながら、地域の歴史を具体的な手触りで学べます。</p>
+          </article>
+          <article class="feature-card reveal">
+            <span class="number">二</span>
+            <h3>昭和の空気を感じる展示</h3>
+            <p>時代の雰囲気を残す写真や道具を通して、炭鉱で働いた人々とその暮らしを想像できます。</p>
+          </article>
+          <article class="feature-card reveal">
+            <span class="number">三</span>
+            <h3>静かに見学しやすい空間</h3>
+            <p>歴史資料館らしい落ち着いた雰囲気で、観光、学習、地域研究の下調べにも使いやすい施設です。</p>
+          </article>
+        </div>
+
+        <figure class="wide-photo reveal">
+          <img src="https://raw.githubusercontent.com/tyzhsnsa/image/main/7.jpg" alt="みろく沢炭砿資料館の展示と館内の様子" loading="lazy">
+          <figcaption>炭砿の記憶を伝える資料を、落ち着いた視線で見学できます。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="exhibits" aria-labelledby="exhibits-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="section-kicker">展示内容</p>
+            <h2 id="exhibits-title">写真、道具、記録から炭砿の時代をたどる。</h2>
+          </div>
+          <p class="section-lead">展示の見どころを分かりやすく整理し、初めて訪れる人にも資料館の魅力が伝わるようにまとめています。</p>
+        </div>
+
+        <div class="exhibit-grid">
+          <article class="exhibit-card reveal">
+            <img src="https://raw.githubusercontent.com/tyzhsnsa/image/main/8.jpg" alt="炭砿資料の展示写真" loading="lazy">
+            <div class="exhibit-body">
+              <h3>採炭で使用された道具</h3>
+              <p>採炭に使われた器具や関連資料から、炭鉱での仕事の流れを具体的に知ることができます。</p>
+            </div>
+          </article>
+          <article class="exhibit-card reveal">
+            <img src="https://raw.githubusercontent.com/tyzhsnsa/image/main/2.jpg" alt="館内に並ぶ歴史資料の写真" loading="lazy">
+            <div class="exhibit-body">
+              <h3>炭鉱での暮らし</h3>
+              <p>仕事を支えた生活用品や日々の記録を通して、炭鉱とともにあった暮らしにふれられます。</p>
+            </div>
+          </article>
+          <article class="exhibit-card reveal">
+            <img src="https://raw.githubusercontent.com/tyzhsnsa/image/main/3.jpg" alt="昭和の雰囲気を残す展示資料の写真" loading="lazy">
+            <div class="exhibit-body">
+              <h3>当時の写真と記録</h3>
+              <p>写真や資料に残された風景から、昭和期のまちの空気や人々の営みをたどれます。</p>
+            </div>
+          </article>
+          <article class="exhibit-card reveal">
+            <img src="https://raw.githubusercontent.com/tyzhsnsa/image/main/10.jpg" alt="みろく沢炭砿資料館の外観または周辺の様子" loading="lazy">
+            <div class="exhibit-body">
+              <h3>内郷白水町の歩み</h3>
+              <p>炭鉱と地域がともに歩んだ歴史を、観光や学習の入り口として分かりやすく伝えます。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="guide" aria-labelledby="guide-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="section-kicker">見学案内</p>
+            <h2 id="guide-title">来館前に確認したい基本情報。</h2>
+          </div>
+          <p class="section-lead">営業時間、所在地、電話番号をすぐ確認できるように整理しました。休館日や入館料などの詳細は、訪問前の電話確認がおすすめです。</p>
+        </div>
+
+        <div class="guide-layout">
+          <article class="guide-card guide-main reveal">
+            <h3>基本情報</h3>
+            <ul class="guide-list">
+              <li>
+                <span>施設名</span>
+                <strong>みろく沢炭砿資料館</strong>
+              </li>
+              <li>
+                <span>カテゴリ</span>
+                <strong>地域歴史博物館</strong>
+              </li>
+              <li>
+                <span>営業時間</span>
+                <strong>9:00〜16:30</strong>
+              </li>
+              <li>
+                <span>電話番号</span>
+                <strong><a href="tel:0246266282">0246&#8209;26&#8209;6282</a></strong>
+              </li>
+            </ul>
+          </article>
+
+          <article class="guide-card reveal">
+            <h3>見学時のポイント</h3>
+            <p>資料をじっくり見たい方は、時間に余裕を持って訪れると安心です。展示の細部に目を向けることで、炭鉱の仕事、暮らし、地域のつながりが見えてきます。</p>
+            <p class="guide-note">休館日、入館料、団体見学などの詳細は、来館前に施設へ直接ご確認ください。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="recommend" aria-labelledby="recommend-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="section-kicker">こんな方におすすめ</p>
+            <h2 id="recommend-title">地域を深く知りたい人に向いた資料館です。</h2>
+          </div>
+          <p class="section-lead">観光の立ち寄り先としてだけでなく、学習、研究、まち歩きの前後にも使いやすい歴史スポットです。</p>
+        </div>
+
+        <div class="recommend-grid">
+          <article class="recommend-card reveal">
+            <span class="recommend-mark" aria-hidden="true"></span>
+            <h3>地域史を学びたい方</h3>
+            <p>いわきの産業とまちの歩みを、資料から具体的に知ることができます。</p>
+          </article>
+          <article class="recommend-card reveal">
+            <span class="recommend-mark" aria-hidden="true"></span>
+            <h3>親子で見学したい方</h3>
+            <p>学校の学習だけでは触れにくい地域の記憶を、実物資料を通じて学べます。</p>
+          </article>
+          <article class="recommend-card reveal">
+            <span class="recommend-mark" aria-hidden="true"></span>
+            <h3>昭和文化に関心がある方</h3>
+            <p>写真や道具から、昭和期の暮らしと働く現場の空気を感じられます。</p>
+          </article>
+          <article class="recommend-card reveal">
+            <span class="recommend-mark" aria-hidden="true"></span>
+            <h3>まち歩きを楽しむ方</h3>
+            <p>内郷白水町周辺を歩く前後に訪れると、風景の見え方が少し深まります。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="access" aria-labelledby="access-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="section-kicker">アクセス</p>
+            <h2 id="access-title">福島県いわき市内郷白水町広畑223。</h2>
+          </div>
+          <p class="section-lead">地図と基本情報を並べて、来館前の確認がしやすい構成にしています。</p>
+        </div>
+
+        <div class="access-layout">
+          <aside class="access-detail reveal" aria-label="所在地と連絡先">
+            <h3>所在地・連絡先</h3>
+            <ul class="info-list">
+              <li>
+                <span class="info-label">住所</span>
+                <span class="info-value">〒973-8405<br>福島県いわき市内郷白水町広畑223</span>
+              </li>
+              <li>
+                <span class="info-label">電話番号</span>
+                <span class="info-value"><a href="tel:0246266282">0246&#8209;26&#8209;6282</a></span>
+              </li>
+              <li>
+                <span class="info-label">営業時間</span>
+                <span class="info-value">9:00〜16:30</span>
+              </li>
+            </ul>
+          </aside>
+
+          <div class="map-frame reveal">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6005.547269595856!2d140.83316946734135!3d37.03352699521885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60210fc664d8310b%3A0x613033227b459a4!2z44G_44KN44GP5rKi54Kt56C_6LOH5paZ6aSo!5e0!3m2!1sja!2sjp!4v1781761597813!5m2!1sja!2sjp" width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="みろく沢炭砿資料館のGoogleマップ"></iframe>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="お問い合わせ" class="お問い合わせ">
-      <div class="container reveal">
-        <div class="お問い合わせ-panel">
-          <div class="section-title" style="margin-bottom: 16px;">
-            <span class="en">お問い合わせ</span>
-            <h2>お問い合わせ</h2>
+    <section class="section section-alt" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="contact-panel reveal">
+          <div>
+            <p class="section-kicker">お問い合わせ</p>
+            <h2 id="contact-title">見学前の確認はお電話で。</h2>
+            <p>開館状況、見学条件、団体利用などの詳細は、来館前に施設へ直接ご確認ください。</p>
           </div>
-          <p class="lead-text" style="margin: 0 auto;">
-            見学前の確認、営業時間、展示内容については、下記の電話番号へお問い合わせください。
-          </p>
-          <a class="tel-large" href="tel:0246266282">☎ 0246-26-6282</a>
-          <p class="muted">スマートフォンではタップして発信できます。</p>
+          <div class="contact-actions">
+            <a class="button button-primary" href="tel:0246266282">0246&#8209;26&#8209;6282へ電話</a>
+            <a class="button" href="#access">地図を見る</a>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
+  <footer class="site-footer">
     <div class="container footer-inner">
-      <div>
-        <strong>みろく沢炭砿資料館</strong><br>
-        〒973-8405 福島県いわき市内郷白水町広畑223
-      </div>
-      <p>
-        © 掲載内容は変更となる場合があります。
-      </p>
+      <span>みろく沢炭砿資料館</span>
+      <span><span id="year"></span> みろく沢炭砿資料館</span>
     </div>
   </footer>
 
-  <a class="fixed-call" href="tel:0246266282">☎ 電話する 0246-26-6282</a>
-
   <script>
-    const revealElements = document.querySelectorAll('.reveal');
+    (() => {
+      const menuButton = document.querySelector(".menu-button");
+      const nav = document.querySelector(".site-nav");
+      const year = document.querySelector("#year");
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
+      if (year) {
+        year.textContent = new Date().getFullYear();
+      }
 
-    revealElements.forEach((el) => observer.observe(el));
+      if (menuButton && nav) {
+        const closeMenu = () => {
+          nav.classList.remove("is-open");
+          menuButton.setAttribute("aria-expanded", "false");
+        };
 
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener('click', (event) => {
-        const target = document.querySelector(anchor.getAttribute('href'));
-        if (!target) return;
-        event.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
+        menuButton.addEventListener("click", () => {
+          const isOpen = nav.classList.toggle("is-open");
+          menuButton.setAttribute("aria-expanded", String(isOpen));
+        });
+
+        nav.addEventListener("click", (event) => {
+          if (event.target instanceof HTMLAnchorElement) {
+            closeMenu();
+          }
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") {
+            closeMenu();
+          }
+        });
+      }
+
+      const revealItems = document.querySelectorAll(".reveal");
+      const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+      if (motionQuery.matches || !("IntersectionObserver" in window)) {
+        revealItems.forEach((item) => item.classList.add("is-visible"));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.16 });
+
+      revealItems.forEach((item) => observer.observe(item));
+    })();
   </script>
 </body>
 </html>
