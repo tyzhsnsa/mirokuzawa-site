@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>みろく沢炭砿資料館｜いわき市内郷白水町の地域歴史博物館</title>
-  <meta name="description" content="福島県いわき市内郷白水町にある、みろく沢炭砿資料館の公式サイトです。炭鉱文化と地域の記憶を落ち着いた雰囲気で紹介します。">
+  <meta name="description" content="福島県いわき市内郷白水町にある、みろく沢炭砿資料館の公式サイトです。常磐炭鉱の歴史と地域の記憶を落ち着いた雰囲気で紹介します。">
   <meta name="robots" content="index, follow">
   <meta name="format-detection" content="telephone=no">
   <meta name="theme-color" content="#1d130d">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ja_JP">
   <meta property="og:title" content="みろく沢炭砿資料館｜いわき市内郷白水町の地域歴史博物館">
-  <meta property="og:description" content="炭鉱文化と地域の記憶にふれる、みろく沢炭砿資料館の公式サイトです。">
+  <meta property="og:description" content="常磐炭鉱の歴史と地域の記憶にふれる、みろく沢炭砿資料館の公式サイトです。">
   <meta property="og:image" content="https://raw.githubusercontent.com/tyzhsnsa/image/main/10.jpg">
   <link rel="preconnect" href="https://raw.githubusercontent.com">
   <link rel="preload" as="image" href="https://raw.githubusercontent.com/tyzhsnsa/image/main/10.jpg">
@@ -322,6 +322,41 @@
       font-weight: 500;
     }
 
+    .language-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 16px;
+      align-items: center;
+      margin-top: 18px;
+      color: rgba(244, 234, 216, 0.82);
+      font-size: 14px;
+    }
+
+    .language-strip p {
+      margin: 0;
+    }
+
+    .language-links {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .language-links a {
+      padding: 6px 10px;
+      color: var(--cream);
+      background: rgba(15, 11, 8, 0.42);
+      border: 1px solid rgba(244, 234, 216, 0.18);
+      border-radius: var(--radius);
+    }
+
+    .language-links a:hover,
+    .language-links a:focus-visible {
+      background: rgba(195, 154, 82, 0.18);
+      outline: none;
+    }
+
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
@@ -422,6 +457,7 @@
 
     .feature-grid,
     .exhibit-grid,
+    .language-grid,
     .recommend-grid {
       display: grid;
       gap: 18px;
@@ -434,6 +470,7 @@
 
     .feature-card,
     .exhibit-card,
+    .language-card,
     .recommend-card,
     .guide-card,
     .contact-panel,
@@ -475,11 +512,44 @@
 
     .feature-card p,
     .exhibit-card p,
+    .language-card p,
     .recommend-card p,
     .guide-card p {
       margin: 14px 0 0;
       color: var(--muted);
       font-size: 15px;
+    }
+
+    .language-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .language-card {
+      min-height: 250px;
+      padding: 28px;
+    }
+
+    .language-label {
+      margin: 0 0 14px;
+      color: var(--brass);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .language-title {
+      margin: 0;
+      color: var(--cream);
+      font-family: var(--font-serif);
+      font-size: clamp(24px, 3vw, 34px);
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .language-card .language-text {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 16px;
     }
 
     .feature-card p {
@@ -768,6 +838,7 @@
 
       .feature-grid,
       .exhibit-grid,
+      .language-grid,
       .recommend-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -839,6 +910,7 @@
 
       .feature-grid,
       .exhibit-grid,
+      .language-grid,
       .recommend-grid {
         grid-template-columns: 1fr;
       }
@@ -888,7 +960,7 @@
       "@context": "https://schema.org",
       "@type": "Museum",
       "name": "みろく沢炭砿資料館",
-      "description": "福島県いわき市内郷白水町にある、炭鉱文化を伝える地域歴史博物館です。",
+      "description": "福島県いわき市内郷白水町にある、常磐炭鉱の歴史と地域の記憶を伝える地域歴史博物館です。",
       "image": "https://raw.githubusercontent.com/tyzhsnsa/image/main/10.jpg",
       "telephone": "0246-26-6282",
       "address": {
@@ -899,7 +971,8 @@
         "streetAddress": "内郷白水町広畑223",
         "addressCountry": "JP"
       },
-      "openingHours": "09:00-16:30"
+      "openingHours": "09:00-16:30",
+      "inLanguage": ["ja", "en", "zh-Hans"]
     }
   </script>
 </head>
@@ -920,6 +993,7 @@
         <a href="#exhibits">展示内容</a>
         <a href="#guide">見学案内</a>
         <a href="#recommend">おすすめ</a>
+        <a href="#languages">多言語案内</a>
         <a href="#access">アクセス</a>
         <a href="#contact">お問い合わせ</a>
       </nav>
@@ -932,7 +1006,15 @@
         <div class="hero-content reveal">
           <p class="eyebrow">地域歴史博物館</p>
           <h1 id="hero-title">みろく沢炭砿資料館</h1>
-          <p class="hero-lead">いわき市内郷白水町に残る炭砿の記憶を、資料と空間から静かにたどる小さな歴史資料館です。</p>
+          <p class="hero-lead">いわき市内郷白水町に残る、常磐炭鉱の歴史を伝える小さな資料館です。</p>
+          <div class="language-strip">
+            <p>English and Chinese information available. 英语・中文介绍</p>
+            <nav class="language-links" aria-label="言語案内">
+              <a href="#top">日本語</a>
+              <a href="#languages" lang="en">English</a>
+              <a href="#languages" lang="zh-Hans">中文</a>
+            </nav>
+          </div>
           <div class="hero-actions">
             <a class="button button-primary" href="#guide">見学案内を見る</a>
             <a class="button" href="tel:0246266282">0246&#8209;26&#8209;6282へ電話</a>
@@ -941,7 +1023,34 @@
             <li>所在地：福島県いわき市内郷白水町</li>
             <li>営業時間：9:00〜16:30</li>
             <li>カテゴリ：地域歴史博物館</li>
+            <li>英語・中国語案内あり</li>
           </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="languages" aria-labelledby="languages-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="section-kicker">多言語案内</p>
+            <h2 id="languages-title">英語・中国語での紹介をご用意しています。</h2>
+          </div>
+          <p class="section-lead">常磐炭鉱の歴史を伝える資料館として、外国人観光客向けに英語・中国語の案内にも対応しています。</p>
+        </div>
+
+        <div class="language-grid">
+          <article class="language-card reveal">
+            <p class="language-label" lang="en">English</p>
+            <p class="language-title" lang="en">Mirokuzawa Coal Mine Museum</p>
+            <p class="language-text" lang="en">A small local history museum in Uchigo-Shiramizu, Iwaki City, Fukushima. The museum preserves the memory of the Joban coal mines and introduces the history of coal mining, miners' lives, and local industry.</p>
+          </article>
+
+          <article class="language-card reveal">
+            <p class="language-label" lang="zh-Hans">中文</p>
+            <p class="language-title" lang="zh-Hans">三六沢煤矿资料馆</p>
+            <p class="language-text" lang="zh-Hans">位于福岛县磐城市内乡白水町的小型历史资料馆。这里保存着常磐煤矿的记忆，可以了解当地煤矿、矿工生活以及日本近代产业发展的历史。</p>
+          </article>
         </div>
       </div>
     </section>
@@ -960,7 +1069,7 @@
           <article class="feature-card reveal">
             <span class="number">一</span>
             <h3>地域に根ざした資料</h3>
-            <p>内郷白水町周辺の炭砿文化を伝える資料にふれながら、地域の歴史を具体的な手触りで学べます。</p>
+            <p>内郷白水町周辺に残る常磐炭鉱の歴史資料にふれながら、地域の歩みを具体的な手触りで学べます。</p>
           </article>
           <article class="feature-card reveal">
             <span class="number">二</span>
@@ -976,7 +1085,7 @@
 
         <figure class="wide-photo reveal">
           <img src="https://raw.githubusercontent.com/tyzhsnsa/image/main/7.jpg" alt="みろく沢炭砿資料館の展示と館内の様子" loading="lazy">
-          <figcaption>炭砿の記憶を伝える資料を、落ち着いた視線で見学できます。</figcaption>
+          <figcaption>常磐炭鉱の記憶を伝える資料を、落ち着いた視線で見学できます。</figcaption>
         </figure>
       </div>
     </section>
@@ -986,14 +1095,14 @@
         <div class="section-heading reveal">
           <div>
             <p class="section-kicker">展示内容</p>
-            <h2 id="exhibits-title">写真、道具、記録から炭砿の時代をたどる。</h2>
+            <h2 id="exhibits-title">写真、道具、記録から炭鉱の時代をたどる。</h2>
           </div>
           <p class="section-lead">展示の見どころを分かりやすく整理し、初めて訪れる人にも資料館の魅力が伝わるようにまとめています。</p>
         </div>
 
         <div class="exhibit-grid">
           <article class="exhibit-card reveal">
-            <img src="https://raw.githubusercontent.com/tyzhsnsa/image/main/8.jpg" alt="炭砿資料の展示写真" loading="lazy">
+            <img src="https://raw.githubusercontent.com/tyzhsnsa/image/main/8.jpg" alt="炭鉱資料の展示写真" loading="lazy">
             <div class="exhibit-body">
               <h3>採炭で使用された道具</h3>
               <p>採炭に使われた器具や関連資料から、炭鉱での仕事の流れを具体的に知ることができます。</p>
