@@ -343,16 +343,18 @@
       align-items: center;
     }
 
-    .language-links a {
+    .language-links button {
       padding: 6px 10px;
       color: var(--cream);
       background: rgba(15, 11, 8, 0.42);
       border: 1px solid rgba(244, 234, 216, 0.18);
       border-radius: var(--radius);
+      cursor: pointer;
     }
 
-    .language-links a:hover,
-    .language-links a:focus-visible {
+    .language-links button:hover,
+    .language-links button:focus-visible,
+    .language-links button.is-active {
       background: rgba(195, 154, 82, 0.18);
       outline: none;
     }
@@ -457,7 +459,6 @@
 
     .feature-grid,
     .exhibit-grid,
-    .language-grid,
     .recommend-grid {
       display: grid;
       gap: 18px;
@@ -470,7 +471,6 @@
 
     .feature-card,
     .exhibit-card,
-    .language-card,
     .recommend-card,
     .guide-card,
     .contact-panel,
@@ -512,44 +512,11 @@
 
     .feature-card p,
     .exhibit-card p,
-    .language-card p,
     .recommend-card p,
     .guide-card p {
       margin: 14px 0 0;
       color: var(--muted);
       font-size: 15px;
-    }
-
-    .language-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .language-card {
-      min-height: 250px;
-      padding: 28px;
-    }
-
-    .language-label {
-      margin: 0 0 14px;
-      color: var(--brass);
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-    }
-
-    .language-title {
-      margin: 0;
-      color: var(--cream);
-      font-family: var(--font-serif);
-      font-size: clamp(24px, 3vw, 34px);
-      font-weight: 700;
-      line-height: 1.25;
-    }
-
-    .language-card .language-text {
-      margin-top: 16px;
-      color: var(--muted);
-      font-size: 16px;
     }
 
     .feature-card p {
@@ -838,7 +805,6 @@
 
       .feature-grid,
       .exhibit-grid,
-      .language-grid,
       .recommend-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -894,8 +860,8 @@
       }
 
       h1 {
-        font-size: clamp(38px, 11vw, 52px);
-        line-height: 1.1;
+        font-size: clamp(34px, 9.2vw, 44px);
+        line-height: 1.08;
         white-space: normal;
       }
 
@@ -910,7 +876,6 @@
 
       .feature-grid,
       .exhibit-grid,
-      .language-grid,
       .recommend-grid {
         grid-template-columns: 1fr;
       }
@@ -993,7 +958,6 @@
         <a href="#exhibits">展示内容</a>
         <a href="#guide">見学案内</a>
         <a href="#recommend">おすすめ</a>
-        <a href="#languages">多言語案内</a>
         <a href="#access">アクセス</a>
         <a href="#contact">お問い合わせ</a>
       </nav>
@@ -1010,9 +974,9 @@
           <div class="language-strip">
             <p>English and Chinese information available. 英语・中文介绍</p>
             <nav class="language-links" aria-label="言語案内">
-              <a href="#top">日本語</a>
-              <a href="#languages" lang="en">English</a>
-              <a href="#languages" lang="zh-Hans">中文</a>
+              <button class="is-active" type="button" data-lang="ja" aria-pressed="true">日本語</button>
+              <button type="button" data-lang="en" lang="en" aria-pressed="false">English</button>
+              <button type="button" data-lang="zh" lang="zh-Hans" aria-pressed="false">中文</button>
             </nav>
           </div>
           <div class="hero-actions">
@@ -1025,32 +989,6 @@
             <li>カテゴリ：地域歴史博物館</li>
             <li>英語・中国語案内あり</li>
           </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-alt" id="languages" aria-labelledby="languages-title">
-      <div class="container">
-        <div class="section-heading reveal">
-          <div>
-            <p class="section-kicker">多言語案内</p>
-            <h2 id="languages-title">英語・中国語での紹介をご用意しています。</h2>
-          </div>
-          <p class="section-lead">常磐炭鉱の歴史を伝える資料館として、外国人観光客向けに英語・中国語の案内にも対応しています。</p>
-        </div>
-
-        <div class="language-grid">
-          <article class="language-card reveal">
-            <p class="language-label" lang="en">English</p>
-            <p class="language-title" lang="en">Mirokuzawa Coal Mine Museum</p>
-            <p class="language-text" lang="en">A small local history museum in Uchigo-Shiramizu, Iwaki City, Fukushima. The museum preserves the memory of the Joban coal mines and introduces the history of coal mining, miners' lives, and local industry.</p>
-          </article>
-
-          <article class="language-card reveal">
-            <p class="language-label" lang="zh-Hans">中文</p>
-            <p class="language-title" lang="zh-Hans">三六沢煤矿资料馆</p>
-            <p class="language-text" lang="zh-Hans">位于福岛县磐城市内乡白水町的小型历史资料馆。这里保存着常磐煤矿的记忆，可以了解当地煤矿、矿工生活以及日本近代产业发展的历史。</p>
-          </article>
         </div>
       </div>
     </section>
@@ -1290,10 +1228,443 @@
       const menuButton = document.querySelector(".menu-button");
       const nav = document.querySelector(".site-nav");
       const year = document.querySelector("#year");
+      const languageButtons = document.querySelectorAll(".language-links button[data-lang]");
+      const currentYear = new Date().getFullYear();
+      const translations = {
+        ja: {
+          htmlLang: "ja",
+          title: "みろく沢炭砿資料館｜いわき市内郷白水町の地域歴史博物館",
+          description: "福島県いわき市内郷白水町にある、みろく沢炭砿資料館の公式サイトです。常磐炭鉱の歴史と地域の記憶を落ち着いた雰囲気で紹介します。",
+          ogDescription: "常磐炭鉱の歴史と地域の記憶にふれる、みろく沢炭砿資料館の公式サイトです。",
+          text: {
+            ".skip-link": "本文へ移動",
+            ".brand-text": "みろく沢炭砿資料館",
+            '.site-nav a[href="#features"]': "特徴",
+            '.site-nav a[href="#exhibits"]': "展示内容",
+            '.site-nav a[href="#guide"]': "見学案内",
+            '.site-nav a[href="#recommend"]': "おすすめ",
+            '.site-nav a[href="#access"]': "アクセス",
+            '.site-nav a[href="#contact"]': "お問い合わせ",
+            ".eyebrow": "地域歴史博物館",
+            "#hero-title": "みろく沢炭砿資料館",
+            ".hero-lead": "いわき市内郷白水町に残る、常磐炭鉱の歴史を伝える小さな資料館です。",
+            ".language-strip > p": "英語・中国語の案内に対応しています。",
+            ".hero-actions .button-primary": "見学案内を見る",
+            '.hero-actions .button[href^="tel:"]': "0246\u201126\u20116282へ電話",
+            ".hero-facts li:nth-child(1)": "所在地：福島県いわき市内郷白水町",
+            ".hero-facts li:nth-child(2)": "営業時間：9:00〜16:30",
+            ".hero-facts li:nth-child(3)": "カテゴリ：地域歴史博物館",
+            ".hero-facts li:nth-child(4)": "英語・中国語案内あり",
+            "#features .section-kicker": "資料館の特徴",
+            "#features-title": "炭鉱文化を、身近な地域の記憶として伝える場所。",
+            "#features .section-lead": "派手な展示演出ではなく、暮らしの道具や記録の積み重ねから、かつての産業と人々の営みを落ち着いて見つめられる構成です。",
+            "#features .feature-card:nth-child(1) .number": "一",
+            "#features .feature-card:nth-child(1) h3": "地域に根ざした資料",
+            "#features .feature-card:nth-child(1) p": "内郷白水町周辺に残る常磐炭鉱の歴史資料にふれながら、地域の歩みを具体的な手触りで学べます。",
+            "#features .feature-card:nth-child(2) .number": "二",
+            "#features .feature-card:nth-child(2) h3": "昭和の空気を感じる展示",
+            "#features .feature-card:nth-child(2) p": "時代の雰囲気を残す写真や道具を通して、炭鉱で働いた人々とその暮らしを想像できます。",
+            "#features .feature-card:nth-child(3) .number": "三",
+            "#features .feature-card:nth-child(3) h3": "静かに見学しやすい空間",
+            "#features .feature-card:nth-child(3) p": "歴史資料館らしい落ち着いた雰囲気で、観光、学習、地域研究の下調べにも使いやすい施設です。",
+            ".wide-photo figcaption": "常磐炭鉱の記憶を伝える資料を、落ち着いた視線で見学できます。",
+            "#exhibits .section-kicker": "展示内容",
+            "#exhibits-title": "写真、道具、記録から炭鉱の時代をたどる。",
+            "#exhibits .section-lead": "展示の見どころを分かりやすく整理し、初めて訪れる人にも資料館の魅力が伝わるようにまとめています。",
+            "#exhibits .exhibit-card:nth-child(1) h3": "採炭で使用された道具",
+            "#exhibits .exhibit-card:nth-child(1) p": "採炭に使われた器具や関連資料から、炭鉱での仕事の流れを具体的に知ることができます。",
+            "#exhibits .exhibit-card:nth-child(2) h3": "炭鉱での暮らし",
+            "#exhibits .exhibit-card:nth-child(2) p": "仕事を支えた生活用品や日々の記録を通して、炭鉱とともにあった暮らしにふれられます。",
+            "#exhibits .exhibit-card:nth-child(3) h3": "当時の写真と記録",
+            "#exhibits .exhibit-card:nth-child(3) p": "写真や資料に残された風景から、昭和期のまちの空気や人々の営みをたどれます。",
+            "#exhibits .exhibit-card:nth-child(4) h3": "内郷白水町の歩み",
+            "#exhibits .exhibit-card:nth-child(4) p": "炭鉱と地域がともに歩んだ歴史を、観光や学習の入り口として分かりやすく伝えます。",
+            "#guide .section-kicker": "見学案内",
+            "#guide-title": "来館前に確認したい基本情報。",
+            "#guide .section-lead": "営業時間、休館日、入館料、駐車場、電話番号をまとめて確認できるように整理しました。",
+            ".guide-main h3": "基本情報",
+            ".guide-list li:nth-child(1) span": "施設名",
+            ".guide-list li:nth-child(1) strong": "みろく沢炭砿資料館",
+            ".guide-list li:nth-child(2) span": "カテゴリ",
+            ".guide-list li:nth-child(2) strong": "地域歴史博物館",
+            ".guide-list li:nth-child(3) span": "営業時間",
+            ".guide-list li:nth-child(3) strong": "9:00〜16:30",
+            ".guide-list li:nth-child(4) span": "休館日",
+            ".guide-list li:nth-child(4) strong": "無休",
+            ".guide-list li:nth-child(5) span": "入館料",
+            ".guide-list li:nth-child(5) strong": "入場無料",
+            ".guide-list li:nth-child(6) span": "駐車場",
+            ".guide-list li:nth-child(6) strong": "30台（大型駐車場あり）",
+            ".guide-list li:nth-child(7) span": "電話番号",
+            ".guide-list li:nth-child(7) a": "0246\u201126\u20116282",
+            "#guide .guide-card:not(.guide-main) h3": "見学時のポイント",
+            "#guide .guide-card:not(.guide-main) > p:not(.guide-note)": "資料をじっくり見たい方は、時間に余裕を持って訪れると安心です。展示の細部に目を向けることで、炭鉱の仕事、暮らし、地域のつながりが見えてきます。",
+            ".guide-note": "個人の資料館ですので、見学時は一言お声がけください。団体見学や最新の営業状況は、来館前に施設へ直接ご確認ください。",
+            "#recommend .section-kicker": "こんな方におすすめ",
+            "#recommend-title": "地域を深く知りたい人に向いた資料館です。",
+            "#recommend .section-lead": "観光の立ち寄り先としてだけでなく、学習、研究、まち歩きの前後にも使いやすい歴史スポットです。",
+            "#recommend .recommend-card:nth-child(1) h3": "地域史を学びたい方",
+            "#recommend .recommend-card:nth-child(1) p": "いわきの産業とまちの歩みを、資料から具体的に知ることができます。",
+            "#recommend .recommend-card:nth-child(2) h3": "親子で見学したい方",
+            "#recommend .recommend-card:nth-child(2) p": "学校の学習だけでは触れにくい地域の記憶を、実物資料を通じて学べます。",
+            "#recommend .recommend-card:nth-child(3) h3": "昭和文化に関心がある方",
+            "#recommend .recommend-card:nth-child(3) p": "写真や道具から、昭和期の暮らしと働く現場の空気を感じられます。",
+            "#recommend .recommend-card:nth-child(4) h3": "まち歩きを楽しむ方",
+            "#recommend .recommend-card:nth-child(4) p": "内郷白水町周辺を歩く前後に訪れると、風景の見え方が少し深まります。",
+            "#access .section-kicker": "アクセス",
+            "#access-title": "福島県いわき市内郷白水町広畑223。",
+            "#access .section-lead": "地図と基本情報を並べて、来館前の確認がしやすい構成にしています。",
+            ".access-detail h3": "所在地・連絡先",
+            ".info-list li:nth-child(1) .info-label": "住所",
+            ".info-list li:nth-child(2) .info-label": "駐車場",
+            ".info-list li:nth-child(3) .info-label": "電話番号",
+            ".info-list li:nth-child(3) a": "0246\u201126\u20116282",
+            ".info-list li:nth-child(4) .info-label": "営業時間",
+            ".info-list li:nth-child(4) .info-value": "9:00〜16:30",
+            "#contact .section-kicker": "お問い合わせ",
+            "#contact-title": "見学前の確認はお電話で。",
+            "#contact .contact-panel p:not(.section-kicker)": "開館状況、見学条件、団体利用などの詳細は、来館前に施設へ直接ご確認ください。",
+            ".contact-actions .button-primary": "0246\u201126\u20116282へ電話",
+            '.contact-actions .button[href="#access"]': "地図を見る",
+            ".support-label": "制作・運営サポート",
+            ".support-name": "Web改善ラボ"
+          },
+          html: {
+            ".info-list li:nth-child(1) .info-value": "〒973-8405<br>福島県いわき市内郷白水町広畑223",
+            ".info-list li:nth-child(2) .info-value": "30台<br>大型駐車場あり"
+          },
+          attrs: {
+            ".brand": { "aria-label": "みろく沢炭砿資料館の先頭へ" },
+            ".menu-button": { "aria-label": "メニューを開閉" },
+            "#site-nav": { "aria-label": "主要メニュー" },
+            ".language-links": { "aria-label": "言語案内" },
+            ".access-detail": { "aria-label": "所在地と連絡先" },
+            ".map-frame iframe": { "title": "みろく沢炭砿資料館のGoogleマップ" },
+            '.wide-photo img': { "alt": "みろく沢炭砿資料館の展示と館内の様子" },
+            '#exhibits .exhibit-card:nth-child(1) img': { "alt": "炭鉱資料の展示写真" },
+            '#exhibits .exhibit-card:nth-child(2) img': { "alt": "館内に並ぶ歴史資料の写真" },
+            '#exhibits .exhibit-card:nth-child(3) img': { "alt": "昭和の雰囲気を残す展示資料の写真" },
+            '#exhibits .exhibit-card:nth-child(4) img': { "alt": "みろく沢炭砿資料館の外観または周辺の様子" }
+          },
+          footerCopy: "{year} みろく沢炭砿資料館"
+        },
+        en: {
+          htmlLang: "en",
+          title: "Mirokuzawa Coal Mine Museum | Local History Museum in Iwaki",
+          description: "Official site for Mirokuzawa Coal Mine Museum in Uchigo-Shiramizu, Iwaki City, Fukushima. Learn about the Joban coal mines and local history.",
+          ogDescription: "Visit Mirokuzawa Coal Mine Museum to learn about the Joban coal mines, miners' lives, and local history in Iwaki.",
+          text: {
+            ".skip-link": "Skip to main content",
+            ".brand-text": "Mirokuzawa Coal Mine Museum",
+            '.site-nav a[href="#features"]': "Features",
+            '.site-nav a[href="#exhibits"]': "Exhibits",
+            '.site-nav a[href="#guide"]': "Visitor Info",
+            '.site-nav a[href="#recommend"]': "Recommended",
+            '.site-nav a[href="#access"]': "Access",
+            '.site-nav a[href="#contact"]': "Contact",
+            ".eyebrow": "Local History Museum",
+            "#hero-title": "Mirokuzawa Coal Mine Museum",
+            ".hero-lead": "A small museum in Uchigo-Shiramizu, Iwaki, preserving the history of the Joban coal mines.",
+            ".language-strip > p": "This page is available in Japanese, English, and Chinese.",
+            ".hero-actions .button-primary": "View Visitor Info",
+            '.hero-actions .button[href^="tel:"]': "Call 0246\u201126\u20116282",
+            ".hero-facts li:nth-child(1)": "Location: Uchigo-Shiramizu, Iwaki, Fukushima",
+            ".hero-facts li:nth-child(2)": "Hours: 9:00-16:30",
+            ".hero-facts li:nth-child(3)": "Category: Local history museum",
+            ".hero-facts li:nth-child(4)": "English and Chinese information available",
+            "#features .section-kicker": "Museum Features",
+            "#features-title": "A place that preserves coal mining culture as local memory.",
+            "#features .section-lead": "Rather than relying on flashy effects, the museum presents tools, records, and everyday materials that quietly show the industry and lives of the people who supported it.",
+            "#features .feature-card:nth-child(1) .number": "1",
+            "#features .feature-card:nth-child(1) h3": "Locally Rooted Materials",
+            "#features .feature-card:nth-child(1) p": "Historical materials from the Uchigo-Shiramizu area help visitors understand the story of the Joban coal mines and the local community.",
+            "#features .feature-card:nth-child(2) .number": "2",
+            "#features .feature-card:nth-child(2) h3": "A Showa-Era Atmosphere",
+            "#features .feature-card:nth-child(2) p": "Photographs and tools evoke the lives of the people who worked in and around the coal mines.",
+            "#features .feature-card:nth-child(3) .number": "3",
+            "#features .feature-card:nth-child(3) h3": "A Quiet Place to Explore",
+            "#features .feature-card:nth-child(3) p": "The calm atmosphere makes the museum suitable for sightseeing, study, and local history research.",
+            ".wide-photo figcaption": "Visitors can take a quiet look at materials preserving the memory of the Joban coal mines.",
+            "#exhibits .section-kicker": "Exhibits",
+            "#exhibits-title": "Tracing the coal mining era through photos, tools, and records.",
+            "#exhibits .section-lead": "The exhibits are organized so first-time visitors can easily understand the museum's main points of interest.",
+            "#exhibits .exhibit-card:nth-child(1) h3": "Tools Used in Coal Mining",
+            "#exhibits .exhibit-card:nth-child(1) p": "Tools and related materials help explain how coal mining work was carried out.",
+            "#exhibits .exhibit-card:nth-child(2) h3": "Life Around the Mines",
+            "#exhibits .exhibit-card:nth-child(2) p": "Household items and daily records show the lives that existed alongside the coal mines.",
+            "#exhibits .exhibit-card:nth-child(3) h3": "Photos and Records",
+            "#exhibits .exhibit-card:nth-child(3) p": "Photographs and documents offer a view of the town and daily life in the Showa era.",
+            "#exhibits .exhibit-card:nth-child(4) h3": "The Story of Uchigo-Shiramizu",
+            "#exhibits .exhibit-card:nth-child(4) p": "The museum introduces the history shared by the mines and the local community.",
+            "#guide .section-kicker": "Visitor Information",
+            "#guide-title": "Basic information before your visit.",
+            "#guide .section-lead": "Check hours, closing days, admission, parking, and phone information before visiting.",
+            ".guide-main h3": "Basic Information",
+            ".guide-list li:nth-child(1) span": "Name",
+            ".guide-list li:nth-child(1) strong": "Mirokuzawa Coal Mine Museum",
+            ".guide-list li:nth-child(2) span": "Category",
+            ".guide-list li:nth-child(2) strong": "Local history museum",
+            ".guide-list li:nth-child(3) span": "Hours",
+            ".guide-list li:nth-child(3) strong": "9:00-16:30",
+            ".guide-list li:nth-child(4) span": "Closed",
+            ".guide-list li:nth-child(4) strong": "Open daily",
+            ".guide-list li:nth-child(5) span": "Admission",
+            ".guide-list li:nth-child(5) strong": "Free",
+            ".guide-list li:nth-child(6) span": "Parking",
+            ".guide-list li:nth-child(6) strong": "30 spaces, large-vehicle parking available",
+            ".guide-list li:nth-child(7) span": "Phone",
+            ".guide-list li:nth-child(7) a": "0246\u201126\u20116282",
+            "#guide .guide-card:not(.guide-main) h3": "Tips for Visiting",
+            "#guide .guide-card:not(.guide-main) > p:not(.guide-note)": "Allow enough time if you want to look closely at the materials. Details in the exhibits reveal the work, daily life, and local connections surrounding the coal mines.",
+            ".guide-note": "This is a privately run museum. Please let the staff know when you visit. For group visits or the latest opening status, please contact the museum in advance.",
+            "#recommend .section-kicker": "Recommended For",
+            "#recommend-title": "A museum for visitors who want to understand the region deeply.",
+            "#recommend .section-lead": "It works well as a sightseeing stop, a learning destination, or a place to visit before or after walking around the area.",
+            "#recommend .recommend-card:nth-child(1) h3": "Local History Learners",
+            "#recommend .recommend-card:nth-child(1) p": "Learn about Iwaki's industry and community history through real materials.",
+            "#recommend .recommend-card:nth-child(2) h3": "Families Visiting Together",
+            "#recommend .recommend-card:nth-child(2) p": "Children and adults can learn about local memory through actual historical materials.",
+            "#recommend .recommend-card:nth-child(3) h3": "Fans of Showa Culture",
+            "#recommend .recommend-card:nth-child(3) p": "Photos and tools convey the atmosphere of work and daily life in the Showa period.",
+            "#recommend .recommend-card:nth-child(4) h3": "Town Walkers",
+            "#recommend .recommend-card:nth-child(4) p": "Visiting before or after walking around Uchigo-Shiramizu adds context to the local scenery.",
+            "#access .section-kicker": "Access",
+            "#access-title": "223 Hirohata, Uchigo-Shiramizu, Iwaki City, Fukushima.",
+            "#access .section-lead": "Map and basic access information are arranged for easy checking before your visit.",
+            ".access-detail h3": "Address and Contact",
+            ".info-list li:nth-child(1) .info-label": "Address",
+            ".info-list li:nth-child(2) .info-label": "Parking",
+            ".info-list li:nth-child(3) .info-label": "Phone",
+            ".info-list li:nth-child(3) a": "0246\u201126\u20116282",
+            ".info-list li:nth-child(4) .info-label": "Hours",
+            ".info-list li:nth-child(4) .info-value": "9:00-16:30",
+            "#contact .section-kicker": "Contact",
+            "#contact-title": "Please call before visiting.",
+            "#contact .contact-panel p:not(.section-kicker)": "For opening status, visit conditions, group visits, and other details, please contact the museum directly before coming.",
+            ".contact-actions .button-primary": "Call 0246\u201126\u20116282",
+            '.contact-actions .button[href="#access"]': "View Map",
+            ".support-label": "Website production and support",
+            ".support-name": "Web改善ラボ"
+          },
+          html: {
+            ".info-list li:nth-child(1) .info-value": "223 Hirohata, Uchigo-Shiramizu,<br>Iwaki City, Fukushima 973-8405",
+            ".info-list li:nth-child(2) .info-value": "30 spaces<br>Large-vehicle parking available"
+          },
+          attrs: {
+            ".brand": { "aria-label": "Back to the top of Mirokuzawa Coal Mine Museum" },
+            ".menu-button": { "aria-label": "Open or close menu" },
+            "#site-nav": { "aria-label": "Main menu" },
+            ".language-links": { "aria-label": "Language selector" },
+            ".access-detail": { "aria-label": "Address and contact information" },
+            ".map-frame iframe": { "title": "Google Map for Mirokuzawa Coal Mine Museum" },
+            '.wide-photo img': { "alt": "Exhibition area inside Mirokuzawa Coal Mine Museum" },
+            '#exhibits .exhibit-card:nth-child(1) img': { "alt": "Coal mining materials on display" },
+            '#exhibits .exhibit-card:nth-child(2) img': { "alt": "Historical materials displayed inside the museum" },
+            '#exhibits .exhibit-card:nth-child(3) img': { "alt": "Exhibits preserving the atmosphere of the Showa era" },
+            '#exhibits .exhibit-card:nth-child(4) img': { "alt": "Exterior or surrounding area of Mirokuzawa Coal Mine Museum" }
+          },
+          footerCopy: "{year} Mirokuzawa Coal Mine Museum"
+        },
+        zh: {
+          htmlLang: "zh-Hans",
+          title: "三六沢煤矿资料馆｜福岛县磐城市的地方历史博物馆",
+          description: "三六沢煤矿资料馆位于福岛县磐城市内乡白水町，介绍常磐煤矿的历史、矿工生活与当地记忆。",
+          ogDescription: "在三六沢煤矿资料馆了解常磐煤矿、矿工生活以及磐城地方历史。",
+          text: {
+            ".skip-link": "跳到正文",
+            ".brand-text": "三六沢煤矿资料馆",
+            '.site-nav a[href="#features"]': "特色",
+            '.site-nav a[href="#exhibits"]': "展示内容",
+            '.site-nav a[href="#guide"]': "参观信息",
+            '.site-nav a[href="#recommend"]': "适合人群",
+            '.site-nav a[href="#access"]': "交通",
+            '.site-nav a[href="#contact"]': "联系",
+            ".eyebrow": "地方历史博物馆",
+            "#hero-title": "三六沢煤矿资料馆",
+            ".hero-lead": "位于福岛县磐城市内乡白水町的小型资料馆，保存并介绍常磐煤矿的历史。",
+            ".language-strip > p": "本页面支持日语、英语和中文显示。",
+            ".hero-actions .button-primary": "查看参观信息",
+            '.hero-actions .button[href^="tel:"]': "拨打 0246\u201126\u20116282",
+            ".hero-facts li:nth-child(1)": "所在地：福岛县磐城市内乡白水町",
+            ".hero-facts li:nth-child(2)": "开放时间：9:00-16:30",
+            ".hero-facts li:nth-child(3)": "类别：地方历史博物馆",
+            ".hero-facts li:nth-child(4)": "提供英语、中文介绍",
+            "#features .section-kicker": "资料馆特色",
+            "#features-title": "把煤矿文化作为地方记忆保存下来的场所。",
+            "#features .section-lead": "这里没有过度华丽的演出，而是通过工具、记录和生活资料，安静地呈现曾经的产业与人们的生活。",
+            "#features .feature-card:nth-child(1) .number": "一",
+            "#features .feature-card:nth-child(1) h3": "扎根当地的资料",
+            "#features .feature-card:nth-child(1) p": "通过内乡白水町周边保存的常磐煤矿历史资料，可以具体了解当地的发展历程。",
+            "#features .feature-card:nth-child(2) .number": "二",
+            "#features .feature-card:nth-child(2) h3": "昭和时代的氛围",
+            "#features .feature-card:nth-child(2) p": "照片和工具让人想象当年煤矿工作者及其家庭的生活。",
+            "#features .feature-card:nth-child(3) .number": "三",
+            "#features .feature-card:nth-child(3) h3": "适合安静参观的空间",
+            "#features .feature-card:nth-child(3) p": "沉稳的资料馆氛围，适合观光、学习和地方历史研究。",
+            ".wide-photo figcaption": "可以安静地参观保存常磐煤矿记忆的资料。",
+            "#exhibits .section-kicker": "展示内容",
+            "#exhibits-title": "通过照片、工具和记录追溯煤矿时代。",
+            "#exhibits .section-lead": "展示内容经过整理，第一次到访的游客也能理解资料馆的看点。",
+            "#exhibits .exhibit-card:nth-child(1) h3": "采煤使用的工具",
+            "#exhibits .exhibit-card:nth-child(1) p": "通过采煤工具和相关资料，可以了解煤矿工作的基本流程。",
+            "#exhibits .exhibit-card:nth-child(2) h3": "煤矿旁的生活",
+            "#exhibits .exhibit-card:nth-child(2) p": "生活用品和日常记录展示了与煤矿共存的生活文化。",
+            "#exhibits .exhibit-card:nth-child(3) h3": "当时的照片与记录",
+            "#exhibits .exhibit-card:nth-child(3) p": "照片和资料展现了昭和时期的街道氛围与人们的日常。",
+            "#exhibits .exhibit-card:nth-child(4) h3": "内乡白水町的历史",
+            "#exhibits .exhibit-card:nth-child(4) p": "以容易理解的方式介绍煤矿与当地共同走过的历史。",
+            "#guide .section-kicker": "参观信息",
+            "#guide-title": "来馆前想确认的基本信息。",
+            "#guide .section-lead": "开放时间、休馆日、门票、停车场和电话信息都整理在这里。",
+            ".guide-main h3": "基本信息",
+            ".guide-list li:nth-child(1) span": "设施名称",
+            ".guide-list li:nth-child(1) strong": "三六沢煤矿资料馆",
+            ".guide-list li:nth-child(2) span": "类别",
+            ".guide-list li:nth-child(2) strong": "地方历史博物馆",
+            ".guide-list li:nth-child(3) span": "开放时间",
+            ".guide-list li:nth-child(3) strong": "9:00-16:30",
+            ".guide-list li:nth-child(4) span": "休馆日",
+            ".guide-list li:nth-child(4) strong": "全年开放",
+            ".guide-list li:nth-child(5) span": "门票",
+            ".guide-list li:nth-child(5) strong": "免费入馆",
+            ".guide-list li:nth-child(6) span": "停车场",
+            ".guide-list li:nth-child(6) strong": "30个车位，可停大型车辆",
+            ".guide-list li:nth-child(7) span": "电话",
+            ".guide-list li:nth-child(7) a": "0246\u201126\u20116282",
+            "#guide .guide-card:not(.guide-main) h3": "参观提示",
+            "#guide .guide-card:not(.guide-main) > p:not(.guide-note)": "如果想仔细观看资料，建议预留充足时间。展示细节能帮助理解煤矿工作、生活与地方联系。",
+            ".guide-note": "这里是个人运营的资料馆。参观时请先向馆方打声招呼。团体参观或最新开放情况，请提前电话确认。",
+            "#recommend .section-kicker": "适合这些人",
+            "#recommend-title": "适合想深入了解地方历史的游客。",
+            "#recommend .section-lead": "这里不仅适合作为观光点，也适合学习、研究或在街区散步前后到访。",
+            "#recommend .recommend-card:nth-child(1) h3": "想学习地方史的人",
+            "#recommend .recommend-card:nth-child(1) p": "可以通过实物资料了解磐城的产业和城市发展。",
+            "#recommend .recommend-card:nth-child(2) h3": "亲子参观",
+            "#recommend .recommend-card:nth-child(2) p": "通过真实资料学习学校课程中不容易接触到的地方记忆。",
+            "#recommend .recommend-card:nth-child(3) h3": "对昭和文化感兴趣的人",
+            "#recommend .recommend-card:nth-child(3) p": "照片和工具能够感受到昭和时期的工作现场与生活氛围。",
+            "#recommend .recommend-card:nth-child(4) h3": "喜欢城市散步的人",
+            "#recommend .recommend-card:nth-child(4) p": "在内乡白水町周边散步前后到访，会让眼前的风景更有历史感。",
+            "#access .section-kicker": "交通",
+            "#access-title": "福岛县磐城市内乡白水町广畑223。",
+            "#access .section-lead": "地图和基本信息放在一起，方便来馆前确认。",
+            ".access-detail h3": "地址与联系方式",
+            ".info-list li:nth-child(1) .info-label": "地址",
+            ".info-list li:nth-child(2) .info-label": "停车场",
+            ".info-list li:nth-child(3) .info-label": "电话",
+            ".info-list li:nth-child(3) a": "0246\u201126\u20116282",
+            ".info-list li:nth-child(4) .info-label": "开放时间",
+            ".info-list li:nth-child(4) .info-value": "9:00-16:30",
+            "#contact .section-kicker": "联系",
+            "#contact-title": "来馆前请电话确认。",
+            "#contact .contact-panel p:not(.section-kicker)": "关于开放情况、参观条件、团体参观等详细信息，请来馆前直接联系资料馆。",
+            ".contact-actions .button-primary": "拨打 0246\u201126\u20116282",
+            '.contact-actions .button[href="#access"]': "查看地图",
+            ".support-label": "网站制作与运营支持",
+            ".support-name": "Web改善ラボ"
+          },
+          html: {
+            ".info-list li:nth-child(1) .info-value": "〒973-8405<br>福岛县磐城市内乡白水町广畑223",
+            ".info-list li:nth-child(2) .info-value": "30个车位<br>可停大型车辆"
+          },
+          attrs: {
+            ".brand": { "aria-label": "返回三六沢煤矿资料馆首页" },
+            ".menu-button": { "aria-label": "打开或关闭菜单" },
+            "#site-nav": { "aria-label": "主菜单" },
+            ".language-links": { "aria-label": "语言选择" },
+            ".access-detail": { "aria-label": "地址与联系方式" },
+            ".map-frame iframe": { "title": "三六沢煤矿资料馆的Google地图" },
+            '.wide-photo img': { "alt": "三六沢煤矿资料馆的展示与馆内情况" },
+            '#exhibits .exhibit-card:nth-child(1) img': { "alt": "煤矿资料展示照片" },
+            '#exhibits .exhibit-card:nth-child(2) img': { "alt": "馆内陈列的历史资料照片" },
+            '#exhibits .exhibit-card:nth-child(3) img': { "alt": "保留昭和时代氛围的展示资料照片" },
+            '#exhibits .exhibit-card:nth-child(4) img': { "alt": "三六沢煤矿资料馆外观或周边照片" }
+          },
+          footerCopy: "{year} 三六沢煤矿资料馆"
+        }
+      };
+
+      const setLanguage = (lang) => {
+        const dictionary = translations[lang] || translations.ja;
+        document.documentElement.lang = dictionary.htmlLang;
+        document.title = dictionary.title;
+
+        const description = document.querySelector('meta[name="description"]');
+        if (description) {
+          description.setAttribute("content", dictionary.description);
+        }
+
+        const ogTitle = document.querySelector('meta[property="og:title"]');
+        if (ogTitle) {
+          ogTitle.setAttribute("content", dictionary.title);
+        }
+
+        const ogDescription = document.querySelector('meta[property="og:description"]');
+        if (ogDescription) {
+          ogDescription.setAttribute("content", dictionary.ogDescription);
+        }
+
+        Object.entries(dictionary.text).forEach(([selector, value]) => {
+          const element = document.querySelector(selector);
+          if (element) {
+            element.textContent = value;
+          }
+        });
+
+        Object.entries(dictionary.html).forEach(([selector, value]) => {
+          const element = document.querySelector(selector);
+          if (element) {
+            element.innerHTML = value;
+          }
+        });
+
+        Object.entries(dictionary.attrs).forEach(([selector, attrs]) => {
+          const element = document.querySelector(selector);
+          if (!element) {
+            return;
+          }
+
+          Object.entries(attrs).forEach(([name, value]) => {
+            element.setAttribute(name, value);
+          });
+        });
+
+        const footerCopy = document.querySelector(".footer-copy");
+        if (footerCopy) {
+          footerCopy.textContent = dictionary.footerCopy.replace("{year}", String(currentYear));
+        }
+
+        languageButtons.forEach((button) => {
+          const isActive = button.dataset.lang === lang;
+          button.classList.toggle("is-active", isActive);
+          button.setAttribute("aria-pressed", String(isActive));
+        });
+
+        try {
+          localStorage.setItem("mirokuzawa-language", lang);
+        } catch (error) {
+          // Local storage may be unavailable in some embedded browsers.
+        }
+      };
+
+      languageButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          setLanguage(button.dataset.lang || "ja");
+        });
+      });
 
       if (year) {
-        year.textContent = new Date().getFullYear();
+        year.textContent = currentYear;
       }
+
+      let initialLanguage = "ja";
+      try {
+        initialLanguage = localStorage.getItem("mirokuzawa-language") || "ja";
+      } catch (error) {
+        initialLanguage = "ja";
+      }
+
+      setLanguage(initialLanguage);
 
       if (menuButton && nav) {
         const closeMenu = () => {
